@@ -48,7 +48,8 @@ pipeline {
                 script {
                     // Pull the Docker image from Docker Hub
                     sh 'docker pull $DOCKER_IMAGE'
-                    // Run the Docker container
+                    sh 'docker stop wellcareconnect || true'
+                    sh 'docker rm wellcareconnect || true'
                     sh 'docker run -d --name wellcareconnect -p 8085:80 $DOCKER_IMAGE'
                 }
             }
