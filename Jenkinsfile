@@ -42,6 +42,17 @@ pipeline {
                 }
             }
         }
+        stage('Clear Docker Components') {
+                steps {
+                    script {
+                        // Remove Docker images and containers
+                        sh 'docker stop $(docker ps -a -q) || true'  
+                        sh  'docker rm $(docker ps -a -q) || true' 
+                        sh  'docker rmi $(docker images -q) || true'
+                        sh 'docker system prune -af'
+                    }
+                }
+            }
 
         stage('Deploy') {
             steps {
@@ -55,16 +66,6 @@ pipeline {
             }
         }
 
-        // stage('Clear Docker Components') {
-        //         steps {
-        //             script {
-        //                 // Remove Docker images and containers
-        //                 sh 'docker stop $(docker ps -a -q) || true'  
-        //                 sh  'docker rm $(docker ps -a -q) || true' 
-        //                 sh  'docker rmi $(docker images -q) || true'
-        //                 sh 'docker system prune -af'
-        //             }
-        //         }
-        //     }
+       
     }
 }
