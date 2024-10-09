@@ -4,11 +4,12 @@ FROM python:3.9
 # ตั้งค่า Working directory
 WORKDIR /app
 
-# ติดตั้ง dependencies ที่จำเป็น
-RUN pip install --no-cache-dir -r requirements.txt
+# คัดลอกไฟล์ requirements.txt และติดตั้ง dependencies
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
-# คัดลอกไฟล์ project เข้าไปใน container
+# คัดลอกโค้ดทั้งหมดเข้าไปใน container
 COPY . /app/
 
-# รันคำสั่งที่จะเริ่ม Django server เมื่อ container ทำงาน
+# รัน Django server หรือ Gunicorn
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
