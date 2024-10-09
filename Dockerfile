@@ -12,4 +12,4 @@ RUN pip install -r requirements.txt
 COPY . /app/
 
 # รัน Django server หรือ Gunicorn
-CMD ["sh", "-c", "python manage.py migrate && gunicorn --workers 3 myproject.wsgi:application --bind 0.0.0.0:8000"]
+CMD ["tail", "-f", "/dev/null"]
