@@ -23,6 +23,6 @@ services:
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/secrets/cloudsql/credentials.json
     volumes:
-      - ./credentials/credentails:/secrets/cloudsql
+      - ./credentials:/secrets/cloudsql
     ports:
       - "5432:5432"
