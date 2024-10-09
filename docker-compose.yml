@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn --workers 3 myproject.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - cloudsql-proxy
+
+  cloudsql-proxy:
+    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+    command: /cloud_sql_proxy -instances=geometric-team-431707-c2:asia-southeast1:wellcare=tcp:5432
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/secrets/cloudsql/credentials.json
+    volumes:
+      - ./credentails:/secrets/cloudsql
+    ports:
+      - "5432:5432"
