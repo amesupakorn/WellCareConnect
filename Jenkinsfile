@@ -4,6 +4,8 @@ pipeline {
     environment {
         // กำหนด environment variables ที่จำเป็น
         GOOGLE_APPLICATION_CREDENTIALS = './credentials/credentials.json'
+        DOCKER_IMAGE       = '0900803496mm/wellcare:latest'
+        DOCKER_CREDENTIALS = credentials('dockerhub')
     }
 
      stages {
@@ -24,22 +26,49 @@ pipeline {
             }
         }
 
-        stage("Push to Docker Hub") {
+         stage('Build Docker Image') {
             steps {
-                echo "Pushing the Docker image to Docker Hub"
-                withCredentials([usernamePassword(credentialsId: "dockerHub", passwordVariable: "dockerHubPass", usernameVariable: "dockerHubUser")]) {
-                    sh "docker tag todo-list-app ${env.dockerHubUser}/todo-list-app:latest"
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                    sh "docker push ${env.dockerHubUser}/todo-list-app:latest"
+     
+                    sh 'echo "Running in $(pwd)"'
+                    sh 'echo start build the Docker image = $DOCKER_IMAGE'
+                    sh 'docker build -t $DOCKER_IMAGE .'
+
+                  
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                script {
+                    
+                    // Login to Docker Hub
+                    sh 'echo $DOCKER_CREDENTIALS_PSW | docker login --username $DOCKER_CREDENTIALS_USR --password-stdin'
+                    // Push the image
+                    sh 'docker push $DOCKER_IMAGE'
                 }
             }
         }
 
-        stage("Deploy") {
+        stage('Deploy') {
             steps {
-                echo "Deploying the container"
-                sh "docker-compose down && docker-compose up -d"
+                script {
+                    // Pull the Docker image from Docker Hub
+                    sh 'docker pull $DOCKER_IMAGE'
+                    // Run the Docker container
+                    sh 'docker run -d --name fastapi-webhook -p 8085:80 $DOCKER_IMAGE'
+                }
             }
         }
+
+        // stage('Clear Docker Components') {
+        //         steps {
+        //             script {
+        //                 // Remove Docker images and containers
+        //                 sh 'docker stop $(docker ps -a -q) || true'  
+        //                 sh  'docker rm $(docker ps -a -q) || true' 
+        //                 sh  'docker rmi $(docker images -q) || true'
+        //                 sh 'docker system prune -af'
+        //             }
+        //         }
+        //     }
     }
 }
