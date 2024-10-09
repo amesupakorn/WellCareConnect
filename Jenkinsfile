@@ -11,6 +11,7 @@ pipeline {
      stages {
         stage('Checkout Code') {
             steps {
+                
                 // ดึงโค้ดจาก GitHub
                  git url: 'https://github.com/amesupakorn/WellCareConnect.git',
                     branch: 'main',
