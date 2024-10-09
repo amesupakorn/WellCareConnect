@@ -6,49 +6,61 @@ pipeline {
         GOOGLE_APPLICATION_CREDENTIALS = './credentials/credentials.json'
     }
 
-    stages {
+     stages {
         stage('Checkout Code') {
             steps {
-                // ดึงโค้ดจาก GitHub repository
-                git url: 'https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME.git', branch: 'main'
+                // ดึงโค้ดจาก GitHub
+                git url: 'https://github.com/amesupakorn/WellCareConnect.git', branch: 'main'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Set Up Virtual Environment') {
             steps {
-                // สร้าง Docker image สำหรับโปรเจค Django
-                sh 'docker-compose build'
+                script {
+                    // สร้าง virtual environment และติดตั้ง dependencies
+                    sh '''
+                    python3 -m venv myvenv
+                    source myvenv/bin/activate
+                    pip install -r requirements.txt
+                    '''
+                }
             }
         }
 
-        stage('Run Migrations') {
+        stage('Migrate Database') {
             steps {
-                // รัน Django migrations เพื่ออัปเดต schema ของฐานข้อมูล
-                sh 'docker-compose run web python manage.py migrate'
+                script {
+                    // รัน Django migrations เพื่ออัปเดตฐานข้อมูล
+                    sh '''
+                    source myvenv/bin/activate
+                    python manage.py migrate
+                    '''
+                }
             }
         }
 
-        stage('Run Tests') {
+        stage('Collect Static Files') {
             steps {
-                // รัน unit tests ของโปรเจค Django
-                sh 'docker-compose run web python manage.py test'
+                script {
+                    // รวบรวมไฟล์ static ของ Django
+                    sh '''
+                    source myvenv/bin/activate
+                    python manage.py collectstatic --noinput
+                    '''
+                }
             }
         }
 
-        stage('Run Application') {
+        stage('Start Django Server') {
             steps {
-                // รัน container ของโปรเจค Django พร้อมกับ Cloud SQL Proxy
-                sh 'docker-compose up -d'
+                script {
+                    // รัน Django development server หรือ Gunicorn
+                    sh '''
+                    source myvenv/bin/activate
+                    python manage.py runserver 0.0.0.0:8000 &
+                    '''
+                }
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build, Migrate, and Run completed successfully!'
-        }
-        failure {
-            echo 'There was an error in the Jenkins Pipeline.'
         }
     }
 }
