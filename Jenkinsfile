@@ -15,7 +15,6 @@ pipeline {
                  git url: 'https://github.com/amesupakorn/WellCareConnect.git',
                     branch: 'main',
                     credentialsId: 'github_token'  // ใส่ credentialsId ที่คุณเพิ่มใน Jenkins
-       
             }
         }
 
