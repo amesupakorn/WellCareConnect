@@ -10,7 +10,10 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // ดึงโค้ดจาก GitHub
-                git url: 'https://github.com/amesupakorn/WellCareConnect.git', branch: 'main'
+                 git url: 'https://github.com/amesupakorn/WellCareConnect.git',
+                    branch: 'main',
+                    credentialsId: 'github_token'  // ใส่ credentialsId ที่คุณเพิ่มใน Jenkins
+       
             }
         }
 
