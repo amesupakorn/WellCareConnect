@@ -33,11 +33,8 @@ pipeline {
         stage('Migrate Database') {
             steps {
                 script {
-                    // รัน Django migrations เพื่ออัปเดตฐานข้อมูล
-                    sh '''
-                    source myvenv/bin/activate
-                    python manage.py migrate
-                    '''
+                     // รัน Django migrations โดยตรงผ่าน virtual environment
+                    sh './myvenv/bin/python manage.py migrate'
                 }
             }
         }
