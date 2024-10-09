@@ -10,6 +10,13 @@ services:
       - "8000:8000"
     depends_on:
       - cloudsql-proxy
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=password
+
 
   cloudsql-proxy:
     image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
