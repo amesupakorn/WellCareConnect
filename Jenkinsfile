@@ -49,7 +49,7 @@ pipeline {
                     // Pull the Docker image from Docker Hub
                     sh 'docker pull $DOCKER_IMAGE'
                     // Run the Docker container
-                    sh 'docker run -d --name wellcare -p 8085:80 $DOCKER_IMAGE'
+                    sh 'docker run -d --name wellcareconnect -p 8085:80 $DOCKER_IMAGE'
                 }
             }
         }
