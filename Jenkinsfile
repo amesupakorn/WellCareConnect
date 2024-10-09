@@ -6,12 +6,14 @@ pipeline {
         GOOGLE_APPLICATION_CREDENTIALS = './credentials/credentials.json'
         DOCKER_IMAGE       = '0900803496mm/wellcare:latest'
         DOCKER_CREDENTIALS = credentials('dockerhub')
+        
     }
+
 
      stages {
         stage('Checkout Code') {
             steps {
-                
+
                 // ดึงโค้ดจาก GitHub
                  git url: 'https://github.com/amesupakorn/WellCareConnect.git',
                     branch: 'main',
