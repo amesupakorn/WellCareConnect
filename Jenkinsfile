@@ -22,11 +22,10 @@ pipeline {
                 script {
                     // สร้าง virtual environment และติดตั้ง dependencies
                     sh '''
+                    rm -rf myvenv
                     python3 -m venv myvenv
-                    source myvenv/bin/activate
-                    pip install -r requirements.txt
+                    . ./myvenv/bin/activate
                     '''
-                    
                 }
             }
         }
