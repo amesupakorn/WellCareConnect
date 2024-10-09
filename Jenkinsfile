@@ -18,13 +18,6 @@ pipeline {
             }
         }
 
-        stage("Build") {
-            steps {
-                echo "Building the Docker image"
-                sh "docker build -t todo-list-app ."
-            }
-        }
-
          stage('Build Docker Image') {
             steps {
      
