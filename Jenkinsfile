@@ -50,7 +50,7 @@ pipeline {
                     sh 'docker pull $DOCKER_IMAGE'
                     sh 'docker stop wellcareconnect || true'
                     sh 'docker rm wellcareconnect || true'
-                    sh 'docker run -d --name wellcareconnect -p 8085:80 $DOCKER_IMAGE'
+                    sh 'docker-compose down && docker-compose up -d'
                 }
             }
         }
