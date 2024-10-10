@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.circle {
+    position: relative;
+    width: 300px;  /* ปรับให้ขนาดวงกลมเหมาะสมกับค่า cx, cy */
+    height: 300px; /* ปรับให้ขนาดวงกลมเหมาะสมกับค่า cx, cy */
+}
+
+.circle svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); /* หมุนเพื่อให้เริ่มที่ด้านบน */
+}
+
+.circle circle {
+    fill: none;
+    stroke-width: 20; /* ความหนาของเส้นวงกลม */
+}
+
+.circle .bg {
+    stroke: #c0e6ff; /* สีพื้นหลังของวงกลม */
+}
+
+.circle .progress {
+    stroke: #0080db; /* สีของโปรเกรสเซอร์ */
+    stroke-dasharray: 879.64; 
+    stroke-dashoffset: 879.64; 
+    transition: stroke-dashoffset 0.5s;
+}
+
+.circle .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem; /* ขนาดข้อความภายในวงกลม */
+    text-align: center;
+}

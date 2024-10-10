@@ -7,3 +7,15 @@ class HomePage(View):
         return render(request, 'index.html',{
             
         })
+
+class CheckPage(View):
+    def get(self, request):
+        return render(request, 'check.html',{
+            
+        })
+
+class ShowCheckPage(View):
+    def get(self, request):
+        return render(request, 'showcheck.html',{
+            
+        })
