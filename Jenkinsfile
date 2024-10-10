@@ -14,8 +14,6 @@ pipeline {
             steps {
 
                 // ดึงโค้ดจาก GitHub
-                sh 'sudo chmod -R 755 /var/lib/jenkins/workspace/WellCareConnect'
-                find . -name "__pycache__" -exec rm -rf {} +
                 git url: 'https://github.com/amesupakorn/WellCareConnect.git',
                     branch: 'main',
                     credentialsId: 'github_token'  // ใส่ credentialsId ที่คุณเพิ่มใน Jenkins
