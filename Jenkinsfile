@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         // กำหนด environment variables ที่จำเป็น
-        GOOGLE_APPLICATION_CREDENTIALS = './credentials/credentials.json'
         DOCKER_IMAGE       = '0900803496mm/wellcare:latest'
         DOCKER_CREDENTIALS = credentials('dockerhub')
 
@@ -15,7 +14,9 @@ pipeline {
             steps {
 
                 // ดึงโค้ดจาก GitHub
-                 git url: 'https://github.com/amesupakorn/WellCareConnect.git',
+                sh 'sudo chmod -R 755 /var/lib/jenkins/workspace/WellCareConnect'
+                find . -name "__pycache__" -exec rm -rf {} +
+                git url: 'https://github.com/amesupakorn/WellCareConnect.git',
                     branch: 'main',
                     credentialsId: 'github_token'  // ใส่ credentialsId ที่คุณเพิ่มใน Jenkins
             }
