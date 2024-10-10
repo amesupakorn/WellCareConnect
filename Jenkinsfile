@@ -10,12 +10,9 @@ pipeline {
 
 
      stages {
-        stage('Fix Permissions and Clean Workspace') {
+        stage('Clean Workspace') {
             steps {
-                // แก้ไขสิทธิ์ก่อนลบ workspace
-                sh 'sudo chmod -R 777 /var/lib/jenkins/workspace/WellCareConnect'
-                sh 'sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/WellCareConnect'
-                sh 'rm -rf /var/lib/jenkins/workspace/WellCareConnect'
+                deleteDir() // ลบทุกไฟล์ใน workspace รวมถึง .git
             }
         }
         stage('Checkout Code') {
