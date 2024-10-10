@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         // กำหนด environment variables ที่จำเป็น
+        GOOGLE_APPLICATION_CREDENTIALS = './credentials/credentials.json'
         DOCKER_IMAGE       = '0900803496mm/wellcare:latest'
         DOCKER_CREDENTIALS = credentials('dockerhub')
 
