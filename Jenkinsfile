@@ -10,6 +10,11 @@ pipeline {
 
 
      stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir() // ลบทุกไฟล์ใน workspace รวมถึง .git
+            }
+        }
         stage('Checkout Code') {
             steps {
 
