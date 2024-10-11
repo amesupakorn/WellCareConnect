@@ -23,7 +23,8 @@ urlpatterns = [
     path('third-3/', views.ServiceThird3.as_view(), name="third-3"),
     path('third-4/', views.ServiceThird4.as_view(), name="third-4"),
     
-    
-    path('webhook/', views.DiseaseWebhookView.as_view(), name="webhook"),
+    path('chat/', views.ChatPage.as_view(), name="chat"),
+
+    path('webhook/', views.HealthWebhookView.as_view(), name="webhook"),
 
 ]
