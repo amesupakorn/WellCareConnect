@@ -110,16 +110,6 @@ class ServiceThird4(View):
             
         })
         
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-from django.views import View
-from .models import Disease
-import json
-import base64
-
-
-
 class ChatPage(View):
     def get(self, request):
         return render(request, 'chatbot/chat.html',{
@@ -190,8 +180,10 @@ class HealthWebhookView(View):
         try:
             # แปลงข้อมูลจาก request body เป็น JSON
             data = json.loads(request.body)
+            action = data['queryResult']['parameters'].get('action') 
             parameters = data['queryResult']['parameters']
             print(parameters)
+
             # เก็บสถานะการสนทนา (session)
             
             output_contexts = data['queryResult'].get('outputContexts', [])
@@ -203,10 +195,55 @@ class HealthWebhookView(View):
                     session_context = context.get('parameters', {})
                     break
 
+            if isinstance(action, list):
+                action = action[0]  
+            else:
+                action = None  
+                
+
+            if 'action' not in session_context:
+                response_text_th = (
+                    "สวัสดีครับ! ยินดีต้อนรับสู่ WellCareChat ผู้ช่วยด้านสุขภาพของคุณ 🤗\n"
+                    "ผมสามารถช่วยคุณเรื่องไหนได้บ้างครับ\n"
+                    "1. เช็คอาการเบื้องต้นครับ\n"
+                    "2. สอบถามเบื้องต้นเกี่ยวกับโรคครับ"
+                )
+                    # บันทึก action ลงใน session_context เพื่อเก็บสถานะการสนทนา
+                session_context['action'] = 'prompt'
+                
+            else:
+                    
+                if action in ['เช็คอาการเบื้องต้น','1', 'อาการเบื้องต้น', 'หนึ่ง', 'อาการ', '1.เช็คอาการเบื้องต้น'] or session_context['action'] == 'check_symptoms':
+                    response_text_th = self.handle_check_symptoms(parameters, session_context, data)
+                    session_context['action'] = 'check_symptoms'  
+              
+                elif action in ['สอบถามเบื้องต้นเกี่ยวกับโรค', '2.เช็คอาการโรคเบื้องต้น', 'สอง', '2', 'โรค']  or session_context['action'] == 'ask_disease':
+                    response_text_th = self.handle_ask_disease(parameters, session_context, data)
+                    session_context['action'] = 'ask_disease'  
+
+                else:
+                    response_text_th = "ขอโทษครับ ช่วยบอกสิ่งที่คุณต้องการให้ผมช่วยอีกรอบครับ😀"
+                    
             print(session_context)
+            return JsonResponse({
+                
+                "fulfillmentText": response_text_th,
+                "outputContexts": [{
+                        "name": f"{data['session']}/contexts/session",
+                        "lifespanCount": 10,
+                        "parameters": session_context
+                    }]
+                })
+
+        except Exception as e:
+            return JsonResponse({"fulfillmentText": f"เกิดข้อผิดพลาด: {str(e)}"})
+        
+    def handle_check_symptoms(self, parameters, session_context, data):
             # ตรวจสอบสถานะของการสนทนา
+            
             if 'sex' not in session_context:
-                response_text_th = f"สวัสดีครับ! ยินดีต้อนรับสู่ WellCareChat ผู้ช่วยด้านสุขภาพของคุณ 🤗 \n 👋 ขั้นที่ 1 ช่วยบอกเพศกับผมหน่อยครับ (ชาย หรือ หญิง)"
+                
+                response_text_th = f"สวัสดีครับ! ผมจะช่วยเช็คอาการเบื้องต้นให้นะครับ 🤗 \n 👋 ขั้นที่ 1 ช่วยบอกเพศกับผมหน่อยครับ (ชาย หรือ หญิง)"
 
                 session_context['sexcheck'] = "pending"  # ตั้งค่าว่ากำลังถามเพศ
        
@@ -247,6 +284,7 @@ class HealthWebhookView(View):
 
             elif 'synonyms' in session_context and session_context['symptomscheck'] == "pending":
                 # ตรวจสอบคำตอบเกี่ยวกับอาการ
+                
                 user_symptoms_th = parameters.get('synonyms', None)  # อาการที่รับเข้ามาเป็นภาษาไทย
                 
                 if user_symptoms_th:
@@ -280,9 +318,7 @@ class HealthWebhookView(View):
             elif 'confirm' in session_context and session_context['confirmcheck'] == "pending":
                 # ตรวจสอบการยืนยันข้อมูล
                 user_confirm = parameters.get('confirm', None)
-                if user_confirm:
-                    response_text_th = "ขอบคุณสำหรับข้อมูลของคุณครับ ผมกำลังทำการวินิจฉัย กรุณารอสักครู่...😃"
-                    
+                if user_confirm:                    
                     # เรียกฟังก์ชันวินิจฉัย API
                     infermedica_url = "https://api.infermedica.com/v3/diagnosis"
                     headers = {
@@ -317,7 +353,7 @@ class HealthWebhookView(View):
                             condition_names_str = ", ".join(condition_names_th)
 
                             # สร้างข้อความเริ่มต้น
-                            response_text_th += f"\nคุณอาจจะมีปัญหาเกี่ยวกับเรื่อง {condition_names_str}. "
+                            response_text_th = f"\nคุณอาจจะมีปัญหาเกี่ยวกับเรื่อง {condition_names_str}. "
 
                             # ดึงระดับ triage level และคำแนะนำเพิ่มเติมหากมีข้อมูล
                             for condition in conditions:
@@ -337,7 +373,10 @@ class HealthWebhookView(View):
                                     response_text_th += f"\nคำแนะนำเพิ่มเติม: {advice}"
 
                             # ต่อท้ายข้อความคำแนะนำทั่วไป
-                            response_text_th += "\nเพื่อความมั่นใจอย่าลืมไปตรวจสุขภาพและดูแลตัวเองเยอะๆนะครับ"
+                            response_text_th += "\nวินิจฉัยเสร็จสิ้น! เพื่อความมั่นใจอย่าลืมไปตรวจสุขภาพและดูแลตัวเองเยอะๆนะครับ"
+                            session_context.clear()
+                            response_text_th += "\n\nต้องการให้ผมช่วยเช็คอะไรอีกไหมครับ? คุณสามารถพิมพ์ 'เช็คอาการ' หรือ 'สอบถามเกี่ยวกับโรค' ได้เลยครับ"
+
                         else:
                             response_text_th = "ไม่พบเงื่อนไขที่ตรงกับอาการของคุณ กรุณาลองอีกครั้ง."
                     else:
@@ -350,17 +389,56 @@ class HealthWebhookView(View):
 
             else:
                 response_text_th = "ช่วยกรอกข้อมูลใหม่ให้ผมอีกครั้งนะครับ"
-            return JsonResponse({
-                "fulfillmentText": response_text_th,
-                "outputContexts": [{
-                    "name": f"{data['session']}/contexts/session",
-                    "lifespanCount": 10,
-                    "parameters": session_context
-                }]
-            })
 
-        except Exception as e:
-            return JsonResponse({"fulfillmentText": f"เกิดข้อผิดพลาด: {str(e)}"})
+            return response_text_th 
+
+
+    def handle_ask_disease(self, parameters, session_context, data):
+        # Logic สำหรับการสอบถามเกี่ยวกับโรคจากฐานข้อมูล SQL
+        if 'disease' not in session_context:
+            response_text_th = "ช่วยระบุชื่อของโรคที่ คุณต้องการรายละเอียดได้เลยครับ😁"
+            session_context['diseasecheck'] = 'pending'
+        
+        elif 'disease' in session_context and session_context['diseasecheck'] == 'pending':
+            user_disease = parameters.get('disease', None)
+            if user_disease:
+                # ค้นหาโรคที่เกี่ยวข้องในฐานข้อมูล SQL
+                matching_diseases = self.find_disease(user_disease)
+                
+                if matching_diseases:
+                    response_text_th = f"โรคที่คุณค้นหาคือ: {matching_diseases.disease_name} \n"
+                    response_text_th += f"รายละเอียดของโรค: {matching_diseases.description} \n"
+                    response_text_th += f"อาการของโรคเบื้องต้น: {matching_diseases.symptoms} \n"
+                    response_text_th += f"การรักษาเบื้องต้น: {matching_diseases.treatment}"
+
+                    session_context.clear()
+                    response_text_th += "\n\nต้องการให้ผมช่วยเช็คอะไรอีกไหมครับ? คุณสามารถพิมพ์ 'เช็คอาการ' หรือ 'สอบถามเกี่ยวกับโรค' ได้เลยครับ"
+                else:
+                    response_text_th = "ขอโทษครับ ผมไม่พบโรคที่ตรงกับที่คุณระบุ"
+        else:
+            response_text_th = "ช่วยระบุุโรคที่คุณอยากทราบอีกครั้งนะครับ"
+            
+        return response_text_th
+    
+    
+    def find_disease(self, user_disease_list):
+        from .models import Disease
+
+        # แทนที่จะใช้ get() ให้ใช้ filter() เพื่อค้นหา
+        if isinstance(user_disease_list, list) and len(user_disease_list) > 0:
+            user_disease = user_disease_list[0]
+            matching_diseases = Disease.objects.filter(disease_name__icontains=user_disease)
+
+        # ตรวจสอบว่ามีโรคที่ค้นพบหรือไม่
+            if matching_diseases.exists():
+                # ถ้าพบโรคที่ตรงกัน ให้ใช้ค่าจากโรคแรกที่เจอ
+                matching_disease = matching_diseases.first()
+            else:
+                matching_disease = None
+        else:
+            matching_disease = None
+        
+        return matching_disease
 
     def get(self, request, *args, **kwargs):
         return JsonResponse({"status": "POST requests only allowed"}, status=405)

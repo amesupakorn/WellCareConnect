@@ -1,32 +1,19 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellCareConnect</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 font-sans">
+{% extends "layout.html" %}
+
+{% block content %}
 
     <!-- Header -->
     <div class="bg-blue-100 p-4 flex items-center justify-between">
         <div class="text-2xl font-bold text-blue-600">
             <span>WellCareConnect</span>
         </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-third" %}';">
+            ย้อนกลับ
+        </button>
     </div>
 
     <!-- Main content -->
     <div class="container max-w-screen-lg mx-auto px-8 py-5">
-        <!-- Title and Back Button in the same line -->
-        <div class="flex justify-between items-center mb-8">
-            <!-- Title -->
-            <div class="text-2xl font-extrabold"></div>
-    
-            <!-- Back Button -->
-            <a href="{% url 'service-third' %}" class="text-blue-500 border border-blue-500 px-4 py-1 rounded hover:bg-blue-500 hover:text-white">
-                ย้อนกลับ
-            </a>
-        </div>
 
         <!-- Section 1: สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ -->
         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
@@ -61,5 +48,4 @@
         </div>
     </div>
 
-</body>
-</html>
+{% endblock%}

@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellCare</title>
-   
-    <link rel="stylesheet" href="{% static 'css/layout.css'%}">
+    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/chat.css'%}">
+
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -25,9 +26,19 @@
 
     <div class="relative">
         <!-- ภาพพื้นหลัง -->
-        <img src="{% static "image/42-Header-1903x388-1.jpg" %}" alt="Background Image" class="w-full object-cover h-72 md:h-96">
+        <img src="{% static "image/chat.png" %}" alt="Background Image" class="w-full object-cover h-72 md:h-96">
         
         <!-- กรอบสีขาว -->
+        <div class="chat-container">
+            <iframe 
+                width="100%" 
+                height="600" 
+                allow="microphone;" 
+                src="https://console.dialogflow.com/api-client/demo/embedded/ab378700-6615-490c-92ec-812d4dee0651" 
+                class="rounded-lg border-2 border-gray-300 shadow-md w-full">
+            </iframe>
+        </div>
+        
         
     </div>
 

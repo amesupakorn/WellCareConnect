@@ -1,29 +1,21 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellCareConnect</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 font-sans">
+{% extends "layout.html" %}
+
+{% block content %}
 
     <!-- Header -->
     <div class="bg-blue-100 p-4 flex items-center justify-between">
         <div class="text-2xl font-bold text-blue-600">
             <span>WellCareConnect</span>
         </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
+            
+            ย้อนกลับ
+        </button>
     </div>
 
     <!-- Main Content -->
     <div class="container mx-auto p-6">
-        <!-- Back Button -->
-        <div class="flex justify-end mb-4">
-            <a href="{% url 'service-first' %}" class="text-blue-500 border border-blue-500 px-4 py-1 rounded hover:bg-blue-500 hover:text-white">
-                ย้อนกลับ
-            </a>
-        </div>
-
+       
         <!-- Section 1: เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได -->
         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
             <h2 class="text-2xl font-bold text-blue-600 mb-4">เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได</h2>
@@ -60,7 +52,4 @@
         
     </div>
 
-    
-
-</body>
-</html>
+{% endblock %}
