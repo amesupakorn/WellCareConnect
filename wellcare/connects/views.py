@@ -110,6 +110,37 @@ class ServiceThird4(View):
             
         })
     
+from django.shortcuts import render, redirect
+from .forms import ReserveForm
+from .models import *
+from .serializers import *
+from django.views import View
+from rest_framework.response import Response
+from rest_framework.views import APIView
+# Create your views here.
+
+class FormView(View):
+    def get(self, request):
+        form = ReserveForm()
+        return render(request, 'form.html', {
+            'form': form
+        })
+    def post(self, request):
+        form = ReserveForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('formview')
+        return render(request, 'form.html', {
+            'form': form
+        })
+
+
+class ReserveList(APIView):
+    def get(self, request):
+        query = Form.objects.all()
+        serializer = ReserveSerializer(query, many=True)
+        return Response(serializer.data)
+    
 class BookingListPage(View):
     def get(self, request):
         return render(request, 'booking/book-list.html',{
@@ -133,6 +164,7 @@ class BookingThird(View):
         return render(request, 'booking/book-third.html',{
             
         })
+    
         
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
