@@ -109,6 +109,30 @@ class ServiceThird4(View):
         return render(request, 'services/third-4.html',{
             
         })
+    
+class BookingListPage(View):
+    def get(self, request):
+        return render(request, 'booking/book-list.html',{
+
+        })
+    
+class BookingFirst(View):
+    def get(self, request):
+        return render(request, 'booking/book-first.html',{
+            
+        })
+    
+class BookingSecond(View):
+    def get(self, request):
+        return render(request, 'booking/book-second.html',{
+            
+        })
+    
+class BookingThird(View):
+    def get(self, request):
+        return render(request, 'booking/book-third.html',{
+            
+        })
         
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt

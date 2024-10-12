@@ -27,4 +27,9 @@ urlpatterns = [
 
     path('webhook/', views.HealthWebhookView.as_view(), name="webhook"),
 
+    path("book-list", views.BookingListPage.as_view(), name="book-list"),
+    path("book-first", views.BookingFirst.as_view(), name="book-first"),
+    path("book-second", views.BookingSecond.as_view(), name="book-second"),
+    path("book-third", views.BookingThird.as_view(), name="book-third"),
+
 ]
