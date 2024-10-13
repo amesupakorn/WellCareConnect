@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+        <!-- Cards Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Section 1: เงินชราภาพ ประกันสังคม คืออะไร? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">เงินชราภาพ ประกันสังคม คืออะไร?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                เงินชราภาพ หรือเงินบำเหน็จบำนาญในระบบประกันสังคม เป็นเงินที่ผู้ประกันตนจะได้รับเมื่อถึงอายุที่กำหนดตามเงื่อนไขของแต่ละมาตราในประกันสังคม
+            </p>
+        </div>
+
+        <!-- Section 2: ใครบ้างมีสิทธิรับเงิน? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ใครบ้างมีสิทธิรับเงิน?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้ที่มีสิทธิได้รับเงินชราภาพประกันสังคม แบ่งออกเป็น 2 กลุ่มหลัก:
+            </p>
+            
+            <!-- Group 1 -->
+            <div class="bg-purple-100 p-4 rounded-lg shadow mb-6">
+                <h3 class="font-semibold mb-2 text-lg">กลุ่มที่ 1: ผู้ประกันตนทั้ง 3 มาตรา (มาตรา 33, 39, 40)</h3>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li>ผู้ประกันตนมาตรา 33 และ 39: ต้องมีอายุ 55 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</li>
+                    <li>ผู้ประกันตนมาตรา 40: ต้องมีอายุ 60 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</li>
+                </ul>
+            </div>
+
+            <!-- Group 2 -->
+            <div class="bg-yellow-100 p-4 rounded-lg shadow">
+                <h3 class="font-semibold mb-2 text-lg">กลุ่มที่ 2: ทายาทของผู้ประกันตนที่เสียชีวิต</h3>
+                <ul class="list-disc list-inside text-gray-700">
+                    <li>ลูก หรือ ลูกบุญธรรมที่ชอบด้วยกฏหมาย</li>
+                    <li>สามี-ภรรยา ที่ถูกต้องตามกฎหมาย</li>
+                    <li>บิดา-มารดา ที่ยังมีชีวิตอยู่</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+
+        <!-- Section 1: เงินชราภาพ ประกันสังคม จะได้รับเมื่อไหร่? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">เงินชราภาพ ประกันสังคม จะได้รับเมื่อไหร่?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้ประกันตนจะได้รับเงินชราภาพจากประกันสังคมเมื่อถึงอายุเกษียณ โดยจะขึ้นอยู่กับระยะเวลาการส่งเงินสมทบว่าจะได้รับเป็นเงินก้อน (บำเหน็จ) หรือเงินรายเดือน (บำนาญ) ตามเงื่อนไขดังต่อไปนี้
+            </p>
+        </div>
+
+        <!-- Section 2: รับเงินก้อนเดียว หรือ บำเหน็จ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">รับเงินก้อนเดียว หรือ บำเหน็จ</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้ที่จะได้รับเงินชราภาพแบบก้อนเดียว (บำเหน็จ) จะต้องจ่ายเงินสมทบไม่ถึง 180 เดือน หรือ 15 ปี โดยแบ่งเป็น 2 กรณี:
+            </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
+                        <h3 class="font-semibold mb-2">จ่ายเงินสมทบน้อยกว่า 12 เดือน:</h3>
+                        <p class="list-disc list-inside text-gray-700">
+                            รับบำเหน็จเท่ากับเงินส่วนของเงินสงเคราะห์บุตรและชราภาพคิดเป็นร้อยละ 3 ของค่าจ้างแต่ละปี
+                        </p>
+                    </div>
+                    <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
+                        <h3 class="font-semibold mb-2">จ่ายสมทบมากกว่า 12 เดือน แต่ไม่ถึง 180 เดือน:</h3>
+                        <p class="list-disc list-inside text-gray-700">
+                            รับบำเหน็จเท่ากับเงินส่วนของเงินสงเคราะห์บุตรและชราภาพบวกกับเงินที่นายจ้างสมทบ หรือคิดเป็นร้อยละ 6 ของค่าจ้างแต่ละปี
+                        </p>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-4 text-lg">
+                    ทั้งนี้ ผู้สมัครเป็นผู้ประกันตน มาตรา 39 ต้องเคยเป็นผู้ประกันตน มาตรา 33 มาแล้วอย่างน้อย 12 เดือน
+                </p>
+        </div>
+
+        <!-- Section 3: รับเงินรายเดือน หรือ บำนาญ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">รับเงินรายเดือน หรือ บำนาญ</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้ประกันตนจ่ายเงินสมทบครบ 180 เดือน แม้ว่าจะหยุดส่งไปช่วงหนึ่งแล้วกลับมาเข้าระบบประกันสังคมใหม่ หรือ ส่งติดต่อกัน 15 ปี จะมีสิทธิ์รับบำนาญเท่ากับ 20% ของค่าจ้างเฉลี่ย 60 เดือนสุดท้าย
+            </p>
+        </div>
+    </div>
+
+{% endblock%}

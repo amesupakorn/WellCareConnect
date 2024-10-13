@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-third" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+
+
+        <!-- Section 1: เปรียบเทียบสิทธิประโยชน์ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ประกันสังคมหรือบัตรทอง ต่างกันอย่างไร</h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto w-full border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="border border-gray-300 px-4 py-2 text-left">สิทธิประโยชน์</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">ประกันสังคม ม.39</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">บัตรทอง</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">การใช้บริการ</td>
+                            <td class="border border-gray-300 px-4 py-2">รพ. ที่ได้เลือกไว้</td>
+                            <td class="border border-gray-300 px-4 py-2">รพ.ในเขตพื้นที่ที่ร่วมโครงการและลงทะเบียนไว้</td>
+                        </tr>
+                        <tr class="bg-gray-100">
+                            <td class="border border-gray-300 px-4 py-2">สิทธิการรักษา</td>
+                            <td class="border border-gray-300 px-4 py-2">สิทธิการรักษาประกันสังคม</td>
+                            <td class="border border-gray-300 px-4 py-2">สิทธิการรักษาพยาบาลบัตรทอง</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">บริการทันตกรรม</td>
+                            <td class="border border-gray-300 px-4 py-2">ถอนฟัน อุดฟัน ขูดหินปูน ไม่เกิน 900 บาท/ปี</td>
+                            <td class="border border-gray-300 px-4 py-2">ใช้ได้ไม่จำกัดจำนวนครั้ง ไม่จำกัดวงเงิน</td>
+                        </tr>
+                        <tr class="bg-gray-100">
+                            <td class="border border-gray-300 px-4 py-2">การรักษาต่อเนื่อง</td>
+                            <td class="border border-gray-300 px-4 py-2">ไม่มีสิทธิการรักษาต่อเนื่อง</td>
+                            <td class="border border-gray-300 px-4 py-2">การรักษาแบบพักฟื้น, การฟื้นฟูสมรรถภาพหลังการรักษา</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">ยาและเวชภัณฑ์</td>
+                            <td class="border border-gray-300 px-4 py-2">ยาในบัญชียาหลักแห่งชาติ, ยานอกบัญชียาหลักแห่งชาติ</td>
+                            <td class="border border-gray-300 px-4 py-2">ยาในบัญชียาหลักแห่งชาติ, ยานอกบัญชียาหลักแห่งชาติ (ขึ้นอยู่กับดุลยพินิจของแพทย์)</td>
+                        </tr>
+                        <tr class="bg-gray-100">
+                            <td class="border border-gray-300 px-4 py-2">ค่าห้องและค่าอาหาร</td>
+                            <td class="border border-gray-300 px-4 py-2">ไม่เกิน 700 บาท/วัน</td>
+                            <td class="border border-gray-300 px-4 py-2">ฟรีค่าห้องและค่าอาหารสามัญ (รพ.รัฐบาล)</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">ระยะเวลาการคุ้มครอง</td>
+                            <td class="border border-gray-300 px-4 py-2">สิ้นสุดการเป็นผู้ประกันตน ด้วยการลาออก เกษียณอายุ หรือขาดส่งเงินสมทบเกิน 3 เดือน</td>
+                            <td class="border border-gray-300 px-4 py-2">ไม่มีวันหมดอายุ ใช้ได้ตลอดชีวิต</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 1: ประกันสังคม มาตรา 39 เกษียณแล้วก็ยังใช้ต่อได้ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ประกันสังคม มาตรา 39 เกษียณแล้วก็ยังใช้ต่อได้</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้สูงอายุที่เกษียณจากการทำงานและสิ้นสุดการเป็นผู้ประกันตนตามสิทธิประกันสังคม แต่ยังอยากคงสิทธิการรักษาพยาบาล สามารถสมัครจ่ายสมทบตามมาตรา 39 เพื่อคงสิทธิรักษาพยาบาล รวมถึงสิทธิประโยชน์อื่น ๆ เช่น ทุพพลภาพ คลอดบุตร สงเคราะห์บุตร ชราภาพ และเสียชีวิต.
+            </p>
+            <p class="text-gray-700 text-lg mb-4">
+                อย่างไรก็ตาม เมื่อลาออกจากการเป็นผู้ประกันตน เงินเดือนเฉลี่ย 60 เดือนที่ใช้ในการคำนวณเงินบำนาญชราภาพจะลดลงเหลือเพียง 4,800 บาท ซึ่งน้อยกว่าเงินเดือนเฉลี่ยที่ใช้ในการคำนวณสำหรับผู้ประกันตนมาตรา 33 ที่มีเงินเดือนเฉลี่ยสูงสุดถึง 15,000 บาท ส่งผลให้เงินบำนาญที่ได้รับจากมาตรา 39 จะลดลง.
+            </p>
+        </div>
+
+        <!-- Section 2: บัตรทองคุ้มครองตลอดชีพ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">บัตรทองคุ้มครองตลอดชีพ</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                หากเปรียบเทียบสิทธิการรักษาพยาบาลตามบัตรทองกับสิทธิประกันสังคม จะพบว่าสิทธิบัตรทองไม่ได้ด้อยไปกว่าสิทธิประกันสังคม อีกทั้งบัตรทองยังคุ้มครองตลอดชีวิตโดยไม่มีวันหมดอายุ ซึ่งเป็นข้อดีสำหรับผู้สูงอายุที่ไม่ต้องกังวลเรื่องการต่ออายุสิทธิรักษาพยาบาล.
+            </p>
+        </div>
+    
+    </div>
+
+{% endblock%}

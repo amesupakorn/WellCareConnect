@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+
+
+        <!-- Section 1: ยื่นขอคืนเงินที่ไหน อย่างไร? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ยื่นขอคืนเงินที่ไหน อย่างไร?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้ประกันตนสามารถยื่นขอรับเงินบำนาญผู้สูงอายุได้ โดยกรอกแบบคำขอรับประโยชน์ทดแทนกรณีชราภาพ (สปส. 2-01) และเตรียมเอกสารสำเนาสมุดบัญชีเงินฝากออมทรัพย์หน้าแรก (กรณีขอรับเงินทางธนาคาร) จาก 11 ธนาคาร ดังนี้:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg mb-5">
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    1. ธนาคารกรุงไทย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    2. ธนาคารกรุงศรีอยุธยา
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    3. ธนาคารกรุงเทพ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    4. ธนาคารไทยพาณิชย์
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    5. ธนาคารกสิกรไทย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    6. ธนาคารทหารไทยธนชาต
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    7. ธนาคารอิสลามแห่งประเทศไทย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    8. ธนาคารซีไอเอ็มบี ไทย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    9. ธนาคารออมสิน
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    10. ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร
+                </div>
+            </div>
+            <p class="text-gray-700 text-lg">
+                ยื่นขอได้ที่สำนักงานประกันสังคมกรุงเทพมหานคร พื้นที่/สำนักงานประกันสังคมจังหวัดและสาขาต่าง ๆ.
+            </p>
+        </div>
+
+        <!-- Section 2: จะได้รับเงินเมื่อไหร่? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">จะได้รับเงินเมื่อไหร่?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                การได้รับเงินขึ้นอยู่กับประเภทของเงินที่ยื่นขอ:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg mb-5">
+                <div class="bg-purple-200 p-4 rounded-lg shadow text-gray-700">
+                    <h3 class="font-semibold mb-2">เงินบำเหน็จ:</h3>
+                    ได้รับภายใน 7-10 วันทำการ (ไม่นับวันหยุดราชการ) หลังจากได้รับการอนุมัติ
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    <h3 class="font-semibold mb-2">เงินบำนาญ:</h3>
+                    หลังจากได้รับการอนุมัติ จะมีเงินโอนเข้าบัญชีภายในวันที่ 25 ของเดือนถัดไป
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

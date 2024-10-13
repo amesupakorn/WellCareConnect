@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellCare</title>
+    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+
+    <link rel="stylesheet" href="{% static 'css/layout.css'%}">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600" >
+            <span>WellCareConnect</span>
+        </div>
+        <div class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'book-first' location.id %}';">
+            <span>ย้อนกลับ</span>
+        </div>
+    </div>
+
+    <div class="container mx-auto max-w-4xl p-6 overflow-y-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-2xl font-bold">จองคิวตรวจ</h1>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="flex items-center mb-6">
+            <div class="w-14 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center">1</div>
+            <div class="w-full h-2 bg-blue-500"></div>
+            <div class="w-14 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center">2</div>
+            <div class="w-full h-2 bg-blue-300"></div>
+            <div class="w-14 h-8 bg-blue-300 text-white rounded-full flex items-center justify-center">3</div>
+        </div>
+
+
+
+            <!-- Booking Details -->
+        <div class="bg-white p-4 shadow-md rounded-lg mb-4">
+            {% csrf_token %}
+            <h2 class="text-center font-bold text-gray-900 mb-4">ตรวจสอบความถูกต้อง</h2>
+            <hr class="mb-4">
+            <div class="flex items-center space-x-2 mb-4">
+                <h4 class="font-bold text-gray-700">สถานที่จอง</h4>
+                <p class="text-gray-600 text-sm">{{ location.name }}</p>
+            </div>
+
+            <h4 class="font-bold text-gray-700 mb-2">รายละเอียด</h4>
+            <p class="text-gray-600 text-sm mb-4">
+                ข้อความร่วมมือ: กรุณามาก่อนเวลาจอง 15 นาที เพื่อเตรียมความพร้อม<br>
+                เวลาทำการ: ทุกวัน 8.00 น. - 16.30 น.<br>
+                ตำแหน่ง: 3 ถ. ฉลองกรุง แขวงลำปลาทิว เขตลาดกระบัง กรุงเทพมหานคร 10520
+            </p>
+
+            <div class="flex space-x-4 mb-4">
+                <div class="w-1/2 flex items-center">
+                    <label for="start_date" class="block text-blue-500 font-bold mr-2">วันที่ต้องการจอง: </label>
+                    <p  id="bookDate">{{ date }}</p>
+                </div>
+                <div class="w-1/2 flex items-center">
+                    <label for="closeTime" class="block text-blue-500 font-bold mr-2">เวลาที่ต้องการจอง: </label>
+                    <p id="bookTime">{{ time_start }} น.</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2 mb-4">
+                <h4 class="font-bold text-gray-700">อาการเบื้องต้น </h4>
+                <p id="symptoms" class="text-gray-600 text-xm">{{ symptoms }}</p>
+            </div>
+            
+            <hr class="mb-4">
+
+            <div class="flex items-center space-x-2 mb-4">
+                <h4 class="font-bold text-blue-500">ชื่อผู้จอง </h4>
+                <p id="bookerName" class="text-gray-600 text-xm">{{ firstname }} {{ lastname }}</p>
+            </div>
+            <div class="flex items-center space-x-2 mb-4">
+                <h4 class="font-bold text-gray-700">เบอร์โทรติดต่อ </h4>
+                <p  id="phone" class="text-gray-600 text-xm">{{ phone }}</p>
+            </div>
+
+            
+        </div>
+
+            <div class="mt-6 flex space-x-2">
+
+                <a href="{% url 'book-list' %}" class="w-1/2 bg-red-500 text-white py-3 rounded text-center hover:bg-red-600">ยกเลิกการจอง</a>
+                <button type="button" id="confirmButton" class="w-1/2 bg-green-500 text-white py-3 rounded text-center hover:bg-green-600">ยืนยันการจอง</button>
+            </div>
+
+    </div>
+
+    <script type="text/javascript">
+        const location_id = {{ location.id }}; 
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    </script>
+    <script src="{% static 'script/confirm.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+</html>

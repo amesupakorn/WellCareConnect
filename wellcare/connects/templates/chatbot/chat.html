@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellCare</title>
+    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/chat.css'%}">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600" >
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "home" %}';">
+            
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <div class="relative">
+        <!-- ภาพพื้นหลัง -->
+        <img src="{% static "image/chat.png" %}" alt="Background Image" class="w-full object-cover h-72 md:h-96">
+        
+        <!-- กรอบสีขาว -->
+        <div class="chat-container">
+            <iframe 
+                width="100%" 
+                height="600" 
+                allow="microphone;" 
+                src="https://console.dialogflow.com/api-client/demo/embedded/ab378700-6615-490c-92ec-812d4dee0651" 
+                class="rounded-lg border-2 border-gray-300 shadow-md w-full">
+            </iframe>
+        </div>
+        
+        
+    </div>
+
+
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src='{% static "script/check.js" %}'></script>
+
+
+</html>

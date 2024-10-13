@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'connects'
 ]
 
@@ -91,12 +93,27 @@ DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',  
 #         'NAME': 'wellcare',
-#         'USER': 'postgress',
-#         'PASSWORD': os.environ.get('DB_PASSWORD'),
-#         'HOST': os.environ.get('DB_HOST'),
-#         'PORT': os.environ.get('DB_PORT'),
+#         'USER': 'postgres',
+#         'PASSWORD': 'password',
+#         'HOST': '34.142.190.101',
+#         'PORT': '5432',
 #     }
 # }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',  
+#         'NAME': 'wellcare',
+#         'USER': 'postgres',
+#         'PASSWORD': '6743',
+#         'HOST': 'localhost',
+#         'PORT': '8000',
+#     }
+# }
+
+TWILIO_ACCOUNT_SID = 'ACb0133181f997e033395a67332ef60992'
+TWILIO_AUTH_TOKEN = '38c463fdd860370ed0122721371487b6'
+TWILIO_PHONE_NUMBER = '+19096464627'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -116,13 +133,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -132,8 +158,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

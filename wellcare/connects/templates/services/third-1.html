@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-third" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+
+        <!-- Section 1: สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้สูงอายุในประเทศไทยมีสิทธิขั้นพื้นฐานในการรักษาพยาบาลหลังเกษียณ ไม่ว่าจะเป็นสิทธิหลักประกันสุขภาพ หรือสิทธิประกันสังคม ดังนี้:
+            </p>
+        </div>
+
+        <!-- Section 2: สิทธิประกันสังคม -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg mb-5">
+                <div class="bg-purple-200 p-4 rounded-lg shadow text-gray-700">
+                    <h3 class="font-semibold mb-2">สิทธิ "บัตรทอง" </h3>
+                    <p class="text-gray-700 text-lg mb-4">
+                        คนไทยทุกคนสามารถใช้สิทธิบัตรทองรักษาได้ตลอดชีวิตไม่มีวันหมดอายุ ครอบคลุมการรักษาโรคทั่วไป เช่น การตรวจสุขภาพ การคัดกรองโรค รวมถึงการรักษาอาการเจ็บป่วยทางกายและจิตใจ เช่น โรคซึมเศร้า และโรคร้ายแรงเรื้อรัง โดยคุ้มครองค่าใช้จ่ายตามการวินิจฉัยของแพทย์.
+                    </p>
+                    <p class="text-gray-700 text-lg">
+                        ทั้งนี้ ผู้ใช้สิทธิบัตรทองต้องไม่เป็นผู้ถือสิทธิอื่น เช่น สิทธิประกันสังคม, สิทธิรัฐวิสาหกิจ หรือสิทธิข้าราชการ.
+                    </p>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    <h3 class="font-semibold mb-2">สิทธิประกันสังคม</h3>
+                    <p class="text-gray-700 text-lg mb-4">
+                        หากผู้สูงอายุต้องการคงสถานภาพสมาชิกประกันสังคมไว้ เพื่อยังคงสิทธิรักษาพยาบาล จะต้องสมัครมาตรา 39 ภายใน 6 เดือนหลังออกจากงาน โดยจะต้องจ่ายเงินสมทบเดือนละ 432 บาท.
+                    </p>
+                    <p class="text-gray-700 text-lg mb-4">
+                        สิทธิประกันสังคมจะคุ้มครองการรักษาอาการเจ็บป่วยทั่วไป และเมื่อเจ็บป่วยฉุกเฉินสามารถเข้ารับบริการโรงพยาบาลใกล้เคียงได้ โดยผู้ประกันตนสามารถสำรองจ่ายค่ารักษาก่อนแล้วจึงเบิกคืนจากประกันสังคม.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}

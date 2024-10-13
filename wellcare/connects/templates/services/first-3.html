@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
+            
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+
+
+        <!-- Section 1: ทำอย่างไรถึงจะได้รับเบี้ยยังชีพผู้สูงอายุ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ทำอย่างไรถึงจะได้รับเบี้ยยังชีพผู้สูงอายุ?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้สูงอายุสามารถดำเนินการรับเบี้ยยังชีพได้ด้วยตัวเอง หรือสามารถมอบอำนาจให้ผู้อื่นดำเนินการแทนได้ โดยสามารถเลือกช่องทางที่สะดวกในการลงทะเบียนรับสิทธิ
+            </p>
+        </div>
+
+        <!-- Section 2: ช่องทางการจ่ายเงิน -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ช่องทางการจ่ายเงิน</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    1. ภาครัฐจะโอนเงินเบี้ยยังชีพผู้สูงอายุผ่านธนาคารที่ผู้สูงอายุแจ้งไว้
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    2. การโอนเงินจะดำเนินการทุกวันที่ 10 ของทุกเดือน
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    3. หากวันที่ 10 ตรงกับวันเสาร์-อาทิตย์ หรือวันหยุดนักขัตฤกษ์ การโอนเงินจะเลื่อนมาเป็นวันก่อนหน้านั้น
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
+                    4. ดังนั้นในบางเดือน ผู้สูงอายุอาจจะได้รับเงินก่อนวันที่ 10
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: รับเงินได้เมื่อไหร่ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">รับเงินได้เมื่อไหร่?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
+                    1. ผู้สูงอายุจะได้รับเบี้ยยังชีพตั้งแต่เดือนตุลาคมของปีที่มีอายุครบ 60 ปีบริบูรณ์
+                </div>
+                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
+                    2. การลงทะเบียนขอรับเบี้ยยังชีพผู้สูงอายุจะต้องทำล่วงหน้า เพื่อรับเงินในปีงบประมาณถัดไป
+                </div>
+                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
+                    3. ภาครัฐจะโอนเงินให้ทุกวันที่ 10 ของทุกเดือน หากตรงกับวันหยุด การโอนเงินจะถูกเลื่อนขึ้นมาเป็นวันก่อนหน้า
+                </div>
+                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
+                    4. ดังนั้น การรับเงินในแต่ละเดือนอาจไม่ตรงวันที่ 10 เสมอ
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

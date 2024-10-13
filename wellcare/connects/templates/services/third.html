@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "home" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+        <!-- Title and Back Button in the same line -->
+        <div class="flex justify-between items-center mb-8">
+            <!-- Title -->
+            <div class="text-2xl font-extrabold">
+                เปรียบเทียบสิทธิรักษาพยาบาลขั้นพื้นฐานหลังเกษียณ
+            </div>
+    
+        </div>
+
+        <!-- Cards Container -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Block 1: เบี้ยผู้สูงอายุคืออะไร -->
+            <a href="{% url 'third-1' %}" class="block">
+                <div class="bg-white rounded-lg shadow p-6 w-full h-52 md:h-50 flex items-center justify-center hover:bg-blue-100 active:bg-blue-300 cursor-pointer">
+                    <h3 class="text-2xl font-bold text-blue-600">สิทธิรักษาพยาบาล สำหรับผู้สูงอายุ</h3>
+                </div>
+            </a>
+
+            <!-- Block 2: การลงทะเบียนรับสิทธิต้องทำอย่างไร -->
+            <a href="{% url 'third-2' %}" class="block">
+                <div class="bg-white rounded-lg shadow p-6 w-full h-52 md:h-50 flex items-center justify-center hover:bg-blue-100 active:bg-blue-300 cursor-pointer">
+                    <h3 class="text-2xl font-bold text-blue-600">ประกันสังคม กับ บัตรทอง เลือกแบบไหน</h3>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+{% endblock%}

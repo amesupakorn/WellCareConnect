@@ -1,0 +1,137 @@
+[
+    {
+        "id": "s_21",
+        "name_en": "Headache",
+        "name_th": "ปวดหัว"
+    },
+    {
+        "id": "s_98",
+        "name_en": "Fever",
+        "name_th": "ไข้"
+    },
+    {
+        "id": "s_102",
+        "name_en": "Cough",
+        "name_th": "ไอ"
+    },
+    {
+        "id": "s_20",
+        "name_en": "Sore throat",
+        "name_th": "เจ็บคอ"
+    },
+    {
+        "id": "s_156",
+        "name_en": "Nausea",
+        "name_th": "คลื่นไส้"
+    },
+    {
+        "id": "s_8",
+        "name_en": "Diarrhea",
+        "name_th": "ท้องเสีย"
+    },
+    {
+        "id": "s_13",
+        "name_en": "Abdominal pain",
+        "name_th": "ปวดท้อง"
+    },
+    {
+        "id": "s_50",
+        "name_en": "Chest pain",
+        "name_th": "เจ็บหน้าอก"
+    },
+    {
+        "id": "s_88",
+        "name_en": "Shortness of breath",
+        "name_th": "หายใจลำบาก"
+    },
+    {
+        "id": "s_53",
+        "name_en": "Back pain",
+        "name_th": "ปวดหลัง"
+    },
+    {
+        "id": "s_305",
+        "name_en": "Vomiting",
+        "name_th": "อาเจียน"
+    },
+    {
+        "id": "s_370",
+        "name_en": "Dizziness",
+        "name_th": "เวียนหัว"
+    },
+    {
+        "id": "s_44",
+        "name_en": "Joint pain",
+        "name_th": "ปวดข้อ"
+    },
+    {
+        "id": "s_107",
+        "name_en": "Runny nose",
+        "name_th": "น้ำมูกไหล"
+    },
+    {
+        "id": "s_11",
+        "name_en": "Hip pain",
+        "name_th": "ปวดสะโพก"
+    },
+    {
+        "id": "s_65",
+        "name_en": "Bad breath",
+        "name_th": "มีกลิ่นปาก"
+    },
+    {
+        "id": "s_67",
+        "name_en": "Snoring",
+        "name_th": "กรน"
+    },
+    {
+        "id": "s_310",
+        "name_en": "Increased thirst",
+        "name_th": "กระหายน้ำเพิ่มขึ้น"
+    },
+    {
+        "id": "s_313",
+        "name_en": "Loss of sensation in one limb",
+        "name_th": "สูญเสียความรู้สึกในแขนหรือขา"
+    },
+    {
+        "id": "s_329",
+        "name_en": "Constipation",
+        "name_th": "ท้องผูก"
+    },
+    {
+        "id": "s_121",
+        "name_en": "Hair loss",
+        "name_th": "ผมร่วง"
+    },
+    {
+        "id": "s_235",
+        "name_en": "Eyelid twitching",
+        "name_th": "เปลือกตากระตุก"
+    },
+    {
+        "id": "s_303",
+        "name_en": "Compulsive behavior",
+        "name_th": "พฤติกรรมที่ต้องทำซ้ำๆ"
+    },
+    {
+        "id": "s_278",
+        "name_en": "Hot flashes",
+        "name_th": "อาการร้อนวูบวาบ"
+    },
+    {
+        "id": "s_504",
+        "name_en": "Foamy urine",
+        "name_th": "ปัสสาวะมีฟอง"
+    },
+    {
+        "id": "s_614",
+        "name_en": "Itchy skin after a hot shower",
+        "name_th": "ผิวคันหลังจากอาบน้ำร้อน"
+    },
+    {
+        "id": "s_616",
+        "name_en": "Swollen face",
+        "name_th": "ใบหน้าบวม"
+    }
+]

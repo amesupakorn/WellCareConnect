@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main content -->
+    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+
+        <!-- Section 1: เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                เงินชราภาพในระบบประกันสังคม ผู้ประกันตนจะได้รับเงินมากหรือน้อย ขึ้นอยู่กับระยะเวลาในการส่งเงินสมทบ โดยวิธีคำนวณจะแบ่งเป็น 2 วิธีหลัก:
+            </p>
+        </div>
+
+        <!-- Section 2: ผู้ประกันตนที่รับเงินบำนาญรายเดือน -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ผู้ประกันตนที่รับเงินบำนาญรายเดือน</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                เมื่อผู้ประกันตนจ่ายเงินสมทบครบ 15 ปี จะได้รับบำนาญ 20% ของค่าจ้างเฉลี่ย(สูงสุด 15,000 บาท) โดยคำนวณจาก:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
+                    <p class="list-disc list-inside text-gray-700">
+                        คิดจากค่าจ้างเฉลี่ย คูณด้วย 20%
+                    </p>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
+                    <p class="list-disc list-inside text-gray-700">
+                        หากจ่ายเงินสมทบเกิน 180 เดือน จะเพิ่มอัตราบำนาญอีก 1.5% ต่อทุก 12 เดือนที่จ่ายเกิน
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: คำนวณรับเงินก้อน หรือ บำเหน็จ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">คำนวณรับเงินก้อน หรือ บำเหน็จ</h2>
+            <p class="text-gray-700 text-lg mb-4">สำหรับผู้ที่จ่ายเงินสมทบไม่ครบ 180 เดือน จะได้รับบำเหน็จ โดยแบ่งเป็น 2 แบบ:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
+                    <p class="list-disc list-inside text-gray-700">
+                        แบบที่ 1: จ่ายเงินสมทบไม่ถึง 12 เดือน จะได้รับบำเหน็จเท่ากับเงินสมทบที่จ่าย
+                    </p>
+                </div>
+                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
+                    <p class="list-disc list-inside text-gray-700">
+                        แบบที่ 2: จ่ายเงินสมทบ 12 เดือนขึ้นไป แต่ไม่ถึง 180 เดือน จะได้รับบำเหน็จเท่ากับเงินสมทบที่จ่ายพร้อมกับเงินสมทบจากนายจ้าง
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: ขอคืนเงินสูงอายุก่อนอายุ 55 ปีได้หรือไม่? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขอคืนเงินสูงอายุก่อนอายุ 55 ปีได้หรือไม่?</h2>
+            <p class="text-gray-700 text-lg mb-4">โดยปกติแล้ว ไม่สามารถขอคืนเงินชราภาพได้ก่อนอายุ 55 ปี ยกเว้นใน 2 กรณี:</p>
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-6 text-lg">
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    1. กรณีที่ผู้ประกันตนกลายเป็นผู้ทุพพลภาพ ก่อนอายุ 55 ปี จะได้รับเป็นบำเหน็จ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    2. กรณีผู้ประกันตนเสียชีวิตก่อนอายุ 55 ปี ทายาทจะได้รับเป็นบำเหน็จ
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: ขอรับเงินบางส่วน ก่อนอายุ 55 ปีได้หรือไม่? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขอรับเงินบางส่วน ก่อนอายุ 55 ปีได้หรือไม่?</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ขณะนี้กำลังมีการศึกษาแนวทางที่จะให้ผู้ประกันตนเลือกขอรับบำเหน็จหรือบำนาญล่วงหน้าได้บางส่วนก่อนอายุ 55 ปี แต่หากเลือกใช้สิทธิล่วงหน้า จะทำให้เงินบำเหน็จหรือบำนาญลดลงในอนาคต และอาจส่งผลต่อความมั่นคงของกองทุนประกันสังคมในระยะยาว.
+            </p>
+        </div>
+
+        <!-- Section 6: แล้วแบบไหนคุ้มกว่ากัน ระหว่างบำเหน็จกับบำนาญ? -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">แล้วแบบไหนคุ้มกว่ากัน ระหว่างบำเหน็จกับบำนาญ?</h2>
+            <p class="text-gray-700 text-lg">
+                หลักการของประกันสังคมต้องการให้ผู้สูงอายุมีเงินใช้จ่ายในชีวิตประจำวันหลังเกษียณ หากส่งเงินสมทบครบ 180 เดือน จะได้รับบำนาญเพียงอย่างเดียว ไม่สามารถเลือกรับบำเหน็จได้ แต่หากจ่ายเงินสมทบไม่ครบ 180 เดือน จะได้รับบำเหน็จแทน.
+            </p>
+        </div>
+    </div>
+
+{% endblock%}

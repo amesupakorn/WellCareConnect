@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
+            
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+
+        <!-- Section 1: ลงทะเบียนรับสิทธิต้องทำอย่างไร -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ลงทะเบียนรับสิทธิต้องทำอย่างไร</h2>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้สูงอายุที่มีอายุตั้งแต่ 59 ปีบริบูรณ์สามารถไปลงทะเบียนรับเบี้ยยังชีพล่วงหน้าได้ตั้งแต่วันที่ 1 ตุลาคม ของปีนั้น และเมื่ออายุครบ 60 ปีบริบูรณ์ในปีถัดไป จะได้รับเบี้ยผู้สูงอายุตั้งแต่เดือนตุลาคม
+            </p>
+            <p class="text-gray-700 text-lg mb-4">
+                ผู้สูงอายุสามารถลงทะเบียนล่วงหน้าได้ตั้งแต่เดือนตุลาคมของทุกปี โดยจะต้องเป็นผู้ที่เกิดก่อนวันที่ 2 กันยายน – 1 ตุลาคม ของปีนั้น ๆ จึงจะมีสิทธิได้รับเบี้ยยังชีพผู้สูงอายุในปีถัดไป
+            </p>
+        </div>
+
+        <!-- Section 2: หลักฐานการลงทะเบียน -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">หลักฐานการลงทะเบียนรับเบี้ยยังชีพผู้สูงอายุ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
+                    <h3 class="font-semibold mb-2">กรณีลงทะเบียนด้วยตนเอง:</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>สำเนาบัตรประจำตัวประชาชน จำนวน 1 ชุด</li>
+                        <li>สำเนาทะเบียนบ้าน จำนวน 1 ชุด</li>
+                        <li>สำเนาสมุดบัญชีเงินฝาก (ออมทรัพย์) จำนวน 1 ชุด</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
+                    <h3 class="font-semibold mb-2">กรณีผู้มอบอำนาจ:</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>หนังสือมอบอำนาจ</li>
+                        <li>สำเนาบัตรประจำตัวประชาชน พร้อมสำเนา 1 ชุด</li>
+                        <li>สำเนาทะเบียนบ้าน พร้อมสำเนา 1 ชุด</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: ขั้นตอนการยื่นขึ้นทะเบียน -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขั้นตอนการยื่นขึ้นทะเบียน</h2>
+            <ul class="list-disc list-inside text-gray-700 text-lg">
+                <li>ประกาศและประชาสัมพันธ์ให้ผู้สูงอายุทราบสิทธิของตนเอง</li>
+                <li>ลงทะเบียนตามวัน เวลา สถานที่ที่กำหนด (ในวันและเวลาราชการ)</li>
+                <li>ให้ผู้สูงอายุลงทะเบียนตามแบบฟอร์มรับเงินเบี้ยยังชีพด้วยตนเอง</li>
+            </ul>
+        </div>
+
+        <!-- Section 4: สถานที่ในการขึ้นทะเบียน -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">สถานที่ในการขึ้นทะเบียน</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700 text-lg mt-4">
+                <div class="bg-blue-100 p-4 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">จุดบริการใน กทม.:</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>สำนักงานเขต 50 เขต</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>ฝ่ายพัฒนาชุมชนและสวัสดิการสังคมสำนักงานเขตป้อมปราบ ศัตรูพ่าย กทม.โทร.0-2282-4196/</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow">
+                    <h3 class="font-semibold mb-2">องค์การปกครองส่วนท้องถิ่น:</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>อบต. (องค์การบริหารส่วนตำบล)</li>
+                        <li>เทศบาลที่มีชื่ออยู่ในทะเบียนบ้าน</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

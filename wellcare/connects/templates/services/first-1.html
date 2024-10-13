@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
+            
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+
+        <!-- Section 1: เบี้ยผู้สูงอายุคืออะไร -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">เบี้ยผู้สูงอายุคืออะไร?</h2>
+            <p class="text-gray-700 text-lg">
+                สวัสดิการที่ทางภาครัฐจัดสรรให้แก่ผู้สูงอายุที่มีอายุ 60 ปีขึ้นไป เพื่อเป็นเงินช่วยเหลือและแบ่งเบาภาระค่าใช้จ่ายในการครองชีพในแต่ละเดือน
+            </p>
+        </div>
+
+        <!-- Section 2: คุณสมบัติผู้มีสิทธิ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">ใครบ้างมีสิทธิได้รับเบี้ยยังชีพผู้สูงอายุ?</h2>
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700 text-lg mt-4">
+                <li class="bg-yellow-100 p-4 rounded-lg shadow flex justify-center items-center text-center">
+                    สัญชาติไทย
+                </li>
+                <li class="bg-pink-200 p-4 rounded-lg shadow flex justify-center items-center text-center">
+                    มีอายุ 59 ปีบริบูรณ์ขึ้นไป (ลงทะเบียนล่วงหน้าก่อนอายุ 60 ปี)
+                </li>
+                <li class="bg-green-100 p-4 rounded-lg shadow flex justify-center items-center text-center">
+                    ไม่มีสิทธิรับเงินบำนาญจากหน่วยงานรัฐหรือรัฐวิสาหกิจ
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section 3: สิทธิประโยชน์ที่ผู้สูงอายุได้รับ (จัดเป็นบล็อก) -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">สิทธิประโยชน์ที่ผู้สูงอายุได้รับ</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    1. เบี้ยยังชีพ 600-1,000 บาทต่อเดือน
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    2. ลดค่าโดยสารยานพาหนะสาธารณะครึ่งราคา
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    3. ขอลดหย่อนภาษีสำหรับบุตรที่ดูแล
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    4. ปรับสภาพที่อยู่อาศัยให้เหมาะสมและปลอดภัย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    5. สิทธิในการกู้ยืมเงินปลอดดอกเบี้ยเพื่อประกอบอาชีพ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    6. สิทธิด้านอาชีพและการฝึกงาน
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    7. เข้ารับบริการด้านการแพทย์ผ่านช่องทางพิเศษ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    8. กระทรวงยุติธรรมมีบริการให้คำปรึกษาและช่วยเหลือทางกฎหมาย
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    9. ยกเว้นค่าเข้าชมสถานที่ของรัฐ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    10. เข้าร่วมกิจกรรมต่าง ๆ โดยไม่เสียค่าใช้จ่าย เช่น สถานกีฬา
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    11. มีการจัดหาที่พักอาศัยที่ปลอดภัยและการฟื้นฟูสภาพร่างกายและจิตใจ
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    12. สิทธิด้านอาหารและเครื่องนุ่งห่ม
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    13. บริการศูนย์พัฒนาการสวัสดิการสังคม
+                </div>
+                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
+                    14. เงินช่วยเหลือจัดการศพ ขอได้ไม่เกิน 3,000 บาท ภายใน 6 เดือน
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: วิธีหลีกเลี่ยงการถูกเรียกคืนเบี้ย -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">วิธีหลีกเลี่ยงถูกเรียกคืนเบี้ยยังชีพ</h2>
+            <p class="text-gray-700 text-lg">
+                ผู้สูงอายุที่ได้รับสิทธิจากหน่วยงานรัฐ เช่น เงินบำนาญ หรือรายได้จากรัฐวิสาหกิจจะไม่สามารถรับเบี้ยยังชีพได้ หากไม่ต้องการถูกเรียกคืนเบี้ยยังชีพ ควรตรวจสอบสิทธิก่อนลงทะเบียน
+            </p>
+        </div>
+    </div>
+{% endblock %}
+

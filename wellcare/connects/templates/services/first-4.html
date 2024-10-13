@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="bg-blue-100 p-4 flex items-center justify-between">
+        <div class="text-2xl font-bold text-blue-600">
+            <span>WellCareConnect</span>
+        </div>
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
+            
+            ย้อนกลับ
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6">
+       
+        <!-- Section 1: เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได</h2>
+            <div class="overflow-x-auto">
+                <table class="table-auto mx-auto border-collapse w-2/3">
+                    <thead>
+                        <tr>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 bg-blue-600 text-white font-bold">อายุ (ปี)</th>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 bg-blue-600 text-white font-bold">รับเงิน (บาท/เดือน)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-100">
+                            <td class="border-b px-4 py-2 text-center">60-69</td>
+                            <td class="border-b px-4 py-2 text-center">600</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b px-4 py-2 text-center">70-79</td>
+                            <td class="border-b px-4 py-2 text-center">700</td>
+                        </tr>
+                        <tr class="bg-gray-100">
+                            <td class="border-b px-4 py-2 text-center">80-89</td>
+                            <td class="border-b px-4 py-2 text-center">800</td>
+                        </tr>
+                        <tr>
+                            <td class="border-b px-4 py-2 text-center">90 ขึ้นไป</td>
+                            <td class="border-b px-4 py-2 text-center">1,000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+    </div>
+
+{% endblock %}
