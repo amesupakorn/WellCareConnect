@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WellCare</title>
-   
+    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+
     <link rel="stylesheet" href="{% static 'css/layout.css'%}">
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -36,19 +37,39 @@
         </div>
 
         <!-- Card 1 -->
-        <a href="{% url 'book-first'%}" class="block">
+        {% for location in locations %}
+        <a href="{% url 'book-first' location.id %}" class="block">
             <div class="bg-white rounded-lg shadow p-4 transition duration-300 hover:bg-blue-100 active:bg-blue-300 cursor-pointer">
                 <div class="flex items-center space-x-3">
                     <img src="{% static 'image/kmitl.jpg' %}" alt="icon" class="w-[80px] h-[80px] object-cover">
                     <div>
-                        <h3 class="text-lg font-bold">คลินิกเวชกรรม สจล.</h3>
+                        <h3 class="text-lg font-bold">{{ location.name }}</h3>
                         <p class="text-gray-500">ยินดีต้อนรับ พร้อมดูแลทุกคน</p>
                     </div>
                 </div>
             </div>
         </a>
+        {% endfor %}
 
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const successMessage = localStorage.getItem('bookingSuccess');
+            
+            if (successMessage) {
+                // ใช้ SweetAlert เพื่อแสดงข้อความแจ้งเตือน
+                Swal.fire({
+                    icon: "success",
+                    title: successMessage,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+        
+                // ลบข้อความแจ้งเตือนออกจาก Local Storage หลังจากแสดงเสร็จแล้ว
+                localStorage.removeItem('bookingSuccess');
+            }
+        });
+    </script>
 </body>
 </html>

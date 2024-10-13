@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from datetime import datetime, timedelta
+from django.shortcuts import redirect, render
 from django.views import View
 from .models import Disease
 # Create your views here.
@@ -110,61 +111,197 @@ class ServiceThird4(View):
             
         })
     
-from django.shortcuts import render, redirect
-from .forms import ReserveForm
+from .serializers import ReserveSerializer
 from .models import *
-from .serializers import *
-from django.views import View
+from django.utils.dateparse import parse_date
+from django.contrib import messages
 from rest_framework.response import Response
 from rest_framework.views import APIView
-# Create your views here.
+from rest_framework import status
+from twilio.rest import Client
+from django.conf import settings
+from twilio.base.exceptions import TwilioRestException
 
-class FormView(View):
-    def get(self, request):
-        form = ReserveForm()
-        return render(request, 'form.html', {
-            'form': form
-        })
-    def post(self, request):
-        form = ReserveForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('formview')
-        return render(request, 'form.html', {
-            'form': form
-        })
-
-
-class ReserveList(APIView):
-    def get(self, request):
-        query = Form.objects.all()
-        serializer = ReserveSerializer(query, many=True)
-        return Response(serializer.data)
     
 class BookingListPage(View):
     def get(self, request):
+        location = Location.objects.all()
         return render(request, 'booking/book-list.html',{
-
+            'locations': location
         })
     
 class BookingFirst(View):
-    def get(self, request):
+    def get(self, request, id):
+        location = Location.objects.get(id=id)
         return render(request, 'booking/book-first.html',{
-            
+            'location' : location
         })
+
+class CheckAvailableTimes(View):
+
+    def post(self, request):
+        # โหลดข้อมูลจาก body ของ request ในรูปแบบ JSON
+        body = json.loads(request.body)
+        selected_date = body.get('date')
+        facility_id = body.get('facility_id')
+
+
+        if selected_date and facility_id:
+            # แปลงวันที่จาก string เป็น date object
+            selected_date = parse_date(selected_date)
+            
+            # Query ข้อมูลเวลาที่ถูกจองแล้ว โดยใช้ checkin_date และ facility_id
+            bookings = Booking.objects.filter(date_reserve=selected_date, location_id=facility_id).values('time_reserve')
+            times = list(bookings)
+            print(times)
+            
+            return JsonResponse(times, safe=False)
+        
+        return JsonResponse([], safe=False)
     
-class BookingSecond(View):
-    def get(self, request):
-        return render(request, 'booking/book-second.html',{
+class BookingSecond(View):  
+    def post(self, request, id):
+        facilities = Location.objects.get(id=id)
+        date = request.POST.get('start_date')
+        time = request.POST.get('selected_time')
+
+        if date and time:
+            try:
+                # แปลงวันที่และเวลา
+                date = datetime.strptime(date, '%Y-%m-%d').date()
+
+                # Convert to Thai Buddhist calendar by adding 543 years
+                thai_year = date.year + 543
+                thai_date = date.replace(year=thai_year)
+
+                # Output the date in the desired format (e.g., 'วัน/เดือน/ปี')
+                thai_date_str = thai_date.strftime('%d/%m/%Y')
+                
+                time = datetime.strptime(time, '%H:%M:%S')
+                time_start = time.strftime('%H:%M')
+
+
+                # ถ้าทำการจองสำเร็จ, แสดงผลในหน้า booking success
+                return render(request, "booking/book-second.html", {
+                    'location': facilities,
+                    'time_start': time_start,
+                    'date': thai_date_str
+                })
+            except ValueError:
+                return redirect('book-first', id=id)
             
-        })
+        messages.error(request, "กรุณากรอกข้อมูลให้ครบด้วยครับ")
+        return redirect('book-first', id=id)
+
     
 class BookingThird(View):
-    def get(self, request):
-        return render(request, 'booking/book-third.html',{
+
+    def post(self, request, id):
+        facilities = Location.objects.get(id=id)
+        
+        date = request.POST.get('date')
+        time = request.POST.get('time_start')
+        firstname = request.POST.get('first_name')
+        lastname = request.POST.get('last_name')
+        symptoms = request.POST.get('symptoms')
+        phone = request.POST.get('phone')
+        if date and time and firstname and lastname and symptoms and phone:
+            try:
+                    # ถ้าทำการจองสำเร็จ, แสดงผลในหน้า booking success
+                    return render(request, "booking/book-third.html", {
+                        'location': facilities,
+                        'time_start': time,
+                        'date': date,
+                        'firstname' : firstname,
+                        'lastname' : lastname,
+                        'symptoms': symptoms,
+                        'phone' : phone
+                    })
+                    
+            except Exception as e:
+                return print({"error": str(e)})
+        
+        else:
+            messages.error(request, "กรุณากรอกข้อมูลให้ครบด้วยครับ")
+            return render(request, "booking/book-second.html", {
+                    'location': facilities,
+                    'time_start': time,
+                    'date': date
+                })
+def format_phone_number(phone):
+    if phone.startswith('0'):
+        phone = '+66' + phone[1:]  # แปลงเบอร์ 0 นำหน้าเป็น +66
+    return phone
+
+# ฟังก์ชันสำหรับส่ง SMS
+def send_sms(to_number, message_body):
+    # ดึงค่า Twilio credentials จาก settings
+    account_sid = settings.TWILIO_ACCOUNT_SID
+    auth_token = settings.TWILIO_AUTH_TOKEN
+    from_number = settings.TWILIO_PHONE_NUMBER
+
+    # สร้าง Client object สำหรับติดต่อ API
+    client = Client(account_sid, auth_token)
+
+    try:
+        # ส่งข้อความ
+        message = client.messages.create(
+            body=message_body,
+            from_=from_number,
+            to=to_number
+        )
+        return message.sid
+    except TwilioRestException as e:
+        print(f"Twilio Error: {e}")
+        return None
+class ConfirmBooking(APIView):
+    def post(self, request):
+        
+        serializer = ReserveSerializer(data=request.data)
+        phone = request.data.get('phone')
+        phone = format_phone_number(phone)
+        print(phone)
+        
+        location = request.data.get('location')
+        booker = request.data.get('booker')
+        date = request.data.get('date_reserve')
+        time = request.data.get('time_reserve')
+        message = f"Wellcare สวัสดีครับขอบคุณที่ทำการจองกับเราเข้ามา \n นี่คือข้อมูลการจองของคุณครับ : \n สถานที่จอง: {location} \n ชื่อที่จอง: {booker} \n วันที่จอง: {date} \n เวลาที่จอง: {time}"
+           
+        if serializer.is_valid():
+            serializer.save()
+
+            sms_sid = send_sms(phone, message)
             
-        })
+            if sms_sid:
+                return Response({"success": True, "message": "Reservation created successfully"}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({"success": True, "message": "Reservation created but SMS failed to send"}, status=status.HTTP_201_CREATED)
+        
+        return Response({"success": False, "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+class MyTokenAuthentication(TokenAuthentication):
+    keyword = "Bearer"
+class ViewBooking(APIView):
+    authentication_classes = [MyTokenAuthentication] 
+    permission_classes = [IsAuthenticated]
     
+    def get(self, request):
+        try:
+            
+            bookings = Booking.objects.filter(location_id__staff_id = request.user)
+            
+            if bookings.exists():
+                serializer = ReserveSerializer(bookings, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'detail': 'No bookings found for this user.'}, status=status.HTTP_404_NOT_FOUND)
+        
+        except Exception as e:
+            return Response({'detail': 'An error occurred: ' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class ChatPage(View):
     def get(self, request):
@@ -235,10 +372,13 @@ class HealthWebhookView(View):
     def post(self, request, *args, **kwargs):
         try:
             # แปลงข้อมูลจาก request body เป็น JSON
+            response_text_th = "ขอโทษครับ ผมไม่เข้าใจคำขอของคุณ กรุณาลองใหม่อีกครั้งครับ😊"
+
             data = json.loads(request.body)
             action = data['queryResult']['parameters'].get('action') 
+            restart = data['queryResult']['parameters'].get('restart') 
             parameters = data['queryResult']['parameters']
-            print(parameters)
+            print(data)
 
             # เก็บสถานะการสนทนา (session)
             
@@ -257,36 +397,46 @@ class HealthWebhookView(View):
                 action = None  
                 
 
-            if 'action' not in session_context:
+            if  restart:
+                session_context.clear()
                 response_text_th = (
-                    "สวัสดีครับ! ยินดีต้อนรับสู่ WellCareChat ผู้ช่วยด้านสุขภาพของคุณ 🤗\n"
-                    "ผมสามารถช่วยคุณเรื่องไหนได้บ้างครับ\n"
+                    
+                    "ให้ผมช่วยคุณเรื่องไหนได้บ้างครับ\n"
                     "1. เช็คอาการเบื้องต้นครับ\n"
                     "2. สอบถามเบื้องต้นเกี่ยวกับโรคครับ"
                 )
-                    # บันทึก action ลงใน session_context เพื่อเก็บสถานะการสนทนา
                 session_context['action'] = 'prompt'
-                
+
             else:
-                    
-                if action in ['เช็คอาการเบื้องต้น','1', 'อาการเบื้องต้น', 'หนึ่ง', 'อาการ', '1.เช็คอาการเบื้องต้น'] or session_context['action'] == 'check_symptoms':
-                    response_text_th = self.handle_check_symptoms(parameters, session_context, data)
-                    session_context['action'] = 'check_symptoms'  
-              
-                elif action in ['สอบถามเบื้องต้นเกี่ยวกับโรค', '2.เช็คอาการโรคเบื้องต้น', 'สอง', '2', 'โรค']  or session_context['action'] == 'ask_disease':
-                    response_text_th = self.handle_ask_disease(parameters, session_context, data)
-                    session_context['action'] = 'ask_disease'  
+                # Continue with normal conversation flow
+                if 'action' not in session_context:
+                    response_text_th = (
+                        "สวัสดีครับ! ยินดีต้อนรับสู่ WellCareChat ผู้ช่วยด้านสุขภาพของคุณ 🤗\n"
+                        "ผมสามารถช่วยคุณเรื่องไหนได้บ้างครับ\n"
+                        "1. เช็คอาการเบื้องต้นครับ\n"
+                        "2. สอบถามเบื้องต้นเกี่ยวกับโรคครับ"
+                    )
+                    session_context['action'] = 'prompt'
 
                 else:
-                    response_text_th = "ขอโทษครับ ช่วยบอกสิ่งที่คุณต้องการให้ผมช่วยอีกรอบครับ😀"
-                    
-            print(session_context)
+                    # Handle other conversation actions based on current session state
+                    if action in ['เช็คอาการเบื้องต้น', '1', 'อาการเบื้องต้น', 'หนึ่ง', 'อาการ', '1.เช็คอาการเบื้องต้น'] or session_context['action'] == 'check_symptoms':
+                        response_text_th = self.handle_check_symptoms(parameters, session_context, data)
+                        session_context['action'] = 'check_symptoms'  
+
+                    elif action in ['สอบถามเบื้องต้นเกี่ยวกับโรค', '2.เช็คอาการโรคเบื้องต้น', 'สอง', '2', 'โรค'] or session_context['action'] == 'ask_disease':
+                        response_text_th = self.handle_ask_disease(parameters, session_context, data)
+                        session_context['action'] = 'ask_disease'  
+
+                    else:
+                        response_text_th = "ขอโทษครับ ช่วยบอกสิ่งที่คุณต้องการให้ผมช่วยอีกรอบครับ😀"
+                
             return JsonResponse({
                 
                 "fulfillmentText": response_text_th,
                 "outputContexts": [{
                         "name": f"{data['session']}/contexts/session",
-                        "lifespanCount": 10,
+                        "lifespanCount": 1,
                         "parameters": session_context
                     }]
                 })
@@ -367,7 +517,7 @@ class HealthWebhookView(View):
                                 "ช่วยยืนยันข้อมูลว่าถูกต้องให้ผมหน่อยครับ"
                             )
                     else:
-                        response_text_th = "ขอโืทษนะครับผมไม่พบอาการที่คุณระบุ ช่วยระบุอาการใหม่อีกครั้งครับ"
+                        response_text_th = "ขอโทษนะครับผมไม่พบอาการที่คุณระบุ ช่วยระบุอาการใหม่อีกครั้งครับ"
                 else:
                     response_text_th = "ช่วยระบุอาการที่คุณมีอีกครั้งครับ"
 
@@ -429,9 +579,9 @@ class HealthWebhookView(View):
                                     response_text_th += f"\nคำแนะนำเพิ่มเติม: {advice}"
 
                             # ต่อท้ายข้อความคำแนะนำทั่วไป
-                            response_text_th += "\nวินิจฉัยเสร็จสิ้น! เพื่อความมั่นใจอย่าลืมไปตรวจสุขภาพและดูแลตัวเองเยอะๆนะครับ"
-                            session_context.clear()
-                            response_text_th += "\n\nต้องการให้ผมช่วยเช็คอะไรอีกไหมครับ? คุณสามารถพิมพ์ 'เช็คอาการ' หรือ 'สอบถามเกี่ยวกับโรค' ได้เลยครับ"
+                            response_text_th += "\nตรวจสอบอาการเสร็จสิ้นครับ😁! เพื่อความมั่นใจอย่าลืมไปตรวจสุขภาพและดูแลตัวเองเยอะๆนะครับ"
+                            session_context['action'] = 'restart'
+                            response_text_th += "\n\nหากต้องการให้ผมช่วยอีกโปรดพิมพ์คำว่า 'เริ่มใหม่' "
 
                         else:
                             response_text_th = "ไม่พบเงื่อนไขที่ตรงกับอาการของคุณ กรุณาลองอีกครั้ง."
@@ -467,8 +617,8 @@ class HealthWebhookView(View):
                     response_text_th += f"อาการของโรคเบื้องต้น: {matching_diseases.symptoms} \n"
                     response_text_th += f"การรักษาเบื้องต้น: {matching_diseases.treatment}"
 
-                    session_context.clear()
-                    response_text_th += "\n\nต้องการให้ผมช่วยเช็คอะไรอีกไหมครับ? คุณสามารถพิมพ์ 'เช็คอาการ' หรือ 'สอบถามเกี่ยวกับโรค' ได้เลยครับ"
+                    session_context['action'] = 'restart'
+                    response_text_th += "\n\nหากต้องการให้ผมช่วยอีกโปรดพิมพ์คำว่า 'เริ่มใหม่' "
                 else:
                     response_text_th = "ขอโทษครับ ผมไม่พบโรคที่ตรงกับที่คุณระบุ"
         else:

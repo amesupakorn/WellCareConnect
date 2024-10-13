@@ -27,9 +27,16 @@ urlpatterns = [
 
     path('webhook/', views.HealthWebhookView.as_view(), name="webhook"),
 
-    path("book-list", views.BookingListPage.as_view(), name="book-list"),
-    path("book-first", views.BookingFirst.as_view(), name="book-first"),
-    path("book-second", views.BookingSecond.as_view(), name="book-second"),
-    path("book-third", views.BookingThird.as_view(), name="book-third"),
+    path("book-list/", views.BookingListPage.as_view(), name="book-list"),
+    path("book-first/<int:id>", views.BookingFirst.as_view(), name="book-first"),
+    path("book-first/check-available-times/", views.CheckAvailableTimes.as_view(), name="check-available-time"),
+
+    path("book-second/<int:id>", views.BookingSecond.as_view(), name="book-second"),
+    path("book-third/<int:id>", views.BookingThird.as_view(), name="book-third"),
+    path("book-third/confirm/", views.ConfirmBooking.as_view(), name="confirm"),
+    
+    
+    path("viewbooking/", views.ViewBooking.as_view(), name="viewbook"),
+
 
 ]

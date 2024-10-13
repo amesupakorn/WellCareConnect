@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'connects'
 ]
 
@@ -109,6 +110,11 @@ DATABASES = {
         'PORT': '8000',
     }
 }
+
+TWILIO_ACCOUNT_SID = 'ACb0133181f997e033395a67332ef60992'
+TWILIO_AUTH_TOKEN = '38c463fdd860370ed0122721371487b6'
+TWILIO_PHONE_NUMBER = '+19096464627'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -126,6 +132,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 
 # Internationalization
