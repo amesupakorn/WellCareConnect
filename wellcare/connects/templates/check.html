@@ -17,7 +17,7 @@
         <div class="text-2xl font-bold text-blue-600" >
             <span>WellCareConnect</span>
         </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "home" %}';">
+        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'home' %}';">
             
             ย้อนกลับ
         </button>
@@ -25,7 +25,7 @@
 
     <div class="relative">
         <!-- ภาพพื้นหลัง -->
-        <img src="{% static "image/42-Header-1903x388-1.jpg" %}" alt="Background Image" class="w-full object-cover h-72 md:h-96">
+        <img src="{% static 'image/42-Header-1903x388-1.jpg' %}" alt="Background Image" class="w-full object-cover h-72 md:h-96">
         
         <!-- กรอบสีขาว -->
         <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white p-6 rounded-lg shadow-lg max-h-full w-11/12 md:w-6/12">
