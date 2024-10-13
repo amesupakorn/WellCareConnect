@@ -253,8 +253,11 @@ def send_sms(to_number, message_body):
         return message.sid
     except TwilioRestException as e:
         print(f"Twilio Error: {e}")
-        return None
+        
+from rest_framework.permissions import AllowAny
+
 class ConfirmBooking(APIView):
+    permission_classes = [AllowAny]
     def post(self, request):
         
         serializer = ReserveSerializer(data=request.data)
@@ -271,12 +274,8 @@ class ConfirmBooking(APIView):
         if serializer.is_valid():
             serializer.save()
 
-            sms_sid = send_sms(phone, message)
-            
-            if sms_sid:
-                return Response({"success": True, "message": "Reservation created successfully"}, status=status.HTTP_201_CREATED)
-            else:
-                return Response({"success": True, "message": "Reservation created but SMS failed to send"}, status=status.HTTP_201_CREATED)
+            # sms_sid = send_sms(phone, message)
+            return Response({"success": True, "message": "Reservation created but SMS failed to send"}, status=status.HTTP_201_CREATED)
         
         return Response({"success": False, "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
