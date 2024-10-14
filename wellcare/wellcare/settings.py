@@ -89,16 +89,6 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',  
-#         'NAME': 'wellcare',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': '34.142.190.101',
-#         'PORT': '5432',
-#     }
-# }
 
 # DATABASES = {
 #     'default': {
