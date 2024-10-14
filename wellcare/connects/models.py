@@ -30,9 +30,9 @@ class Location(models.Model):
         return self.name
     
 class Booking(models.Model):
-    booker = models.CharField()
-    phone = models.CharField()
-    symptoms = models.CharField()
+    booker = models.CharField(max_length=50)
+    phone = models.CharField(max_length=10)
+    symptoms = models.CharField(max_length=255)
     date_reserve = models.DateField()
     time_reserve = models.TimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
