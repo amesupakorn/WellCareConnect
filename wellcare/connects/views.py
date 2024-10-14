@@ -364,7 +364,6 @@ def map_sex_th_to_en(user_input):
         return "female"
     return None
 
-
 @method_decorator(csrf_exempt, name='dispatch')
 class HealthWebhookView(View):
 
