@@ -1,5 +1,5 @@
 # เลือก Base Image เป็น Python เวอร์ชันที่คุณใช้
-FROM python:3.9
+FROM python:3.10
 
 # ตั้งค่า Working directory
 WORKDIR /app
