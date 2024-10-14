@@ -4,6 +4,8 @@ FROM python:3.10
 # ตั้งค่า Working directory
 WORKDIR /app
 
+RUN pip install --upgrade pip
+
 # อัปเดต pip และ setuptools
 RUN pip install --upgrade pip setuptools wheel
 # คัดลอกไฟล์ requirements.txt และติดตั้ง dependencies
