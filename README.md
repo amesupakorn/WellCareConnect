@@ -4,3 +4,5 @@ Tools
 * Google Cloud
 * Dialogflow
 * infermedica API
+* Docker
+* Jenkins
