@@ -1,2 +1,6 @@
 # WellCareConnect
-Final project Devtool &amp; Google Cloud &amp; Dialogflow &amp; infermedica API
+Final project Devtool &amp; 
+Tools 
+* Google Cloud
+* Dialogflow
+* infermedica API
