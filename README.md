@@ -7,3 +7,5 @@
 * infermedica API
 * Docker
 * Jenkins
+
+![CICD](WELLCARE.jpg)
