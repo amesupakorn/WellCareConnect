@@ -9,8 +9,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DB_HOST: 34.142.190.101  # ใช้ Public IP ที่ได้จาก Cloud SQL
-      DB_PORT: 5432                  # ใช้ port ที่ถูกต้อง (5432 สำหรับ PostgreSQL, 3306 สำหรับ MySQL)
+      DB_HOST: 34.142.190.101  
+      DB_PORT: 5432         
       DB_USER: postgres
       DB_PASSWORD: password
       DB_NAME: wellcare
