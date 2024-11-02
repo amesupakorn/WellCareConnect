@@ -318,10 +318,6 @@ from django.views.decorators.csrf import csrf_exempt
 from googletrans import Translator
 
 
-# ใส่ API key ของ Infermedica ที่คุณได้รับหลังการสมัคร
-INFERMEDICA_API_KEY = "11c148e9564ce5e566cbf05d468b74ad"
-INFERMEDICA_APP_ID = "b6b71842"
-
 # ฟังก์ชันเพื่อโหลดข้อมูล Symptom ID จากไฟล์ JSON
 def load_symptoms(file_path='symptoms.json'):
     with open(file_path, 'r', encoding='utf-8') as file:
