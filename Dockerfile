@@ -14,5 +14,8 @@ COPY . /app/
 # เข้าไปในโฟลเดอร์ที่มี manage.py
 WORKDIR /app/wellcare
 
+# รวบรวมไฟล์ Static
+RUN python manage.py collectstatic --noinput
+
 # รัน Gunicorn โดย bind กับตัวแปร $PORT ที่ Cloud Run จะสุ่มให้
 CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 wellcare.wsgi:application
