@@ -4,10 +4,14 @@ FROM python:3.9-slim
 # ตั้งค่า Working directory
 WORKDIR /app
 
+RUN pip install --upgrade pip
+
+# อัปเดต pip และ setuptools
+RUN pip install --upgrade pip setuptools wheel
 # คัดลอกไฟล์ requirements.txt และติดตั้ง dependencies
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install --no-cache-dir -r requirements.txt
 # คัดลอกโค้ดทั้งหมดเข้าไปใน container
 COPY . /app/
 

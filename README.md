@@ -1,2 +1,11 @@
 # WellCareConnect
-Final project Devtool &amp; Google Cloud
+> Final project Devtool
+
+**Tools** 
+* Google Cloud
+* Dialogflow
+* infermedica API
+* Docker
+* Jenkins
+
+![CICD](WELLCARE.jpg)
