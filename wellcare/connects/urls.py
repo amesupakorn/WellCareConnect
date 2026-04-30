@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .webhooks import HealthWebhookView
 
 urlpatterns = [
     path('', views.HomePage.as_view(), name="home"),
@@ -23,8 +24,7 @@ urlpatterns = [
     path('third-3/', views.ServiceThird3.as_view(), name="third-3"),
     path('third-4/', views.ServiceThird4.as_view(), name="third-4"),
     
-
-    path('webhook/', views.HealthWebhookView.as_view(), name="webhook"),
+    path('webhook/', HealthWebhookView.as_view(), name="webhook"),
 
     path("book-list/", views.BookingListPage.as_view(), name="book-list"),
     path("book-first/<int:id>", views.BookingFirst.as_view(), name="book-first"),
@@ -34,13 +34,10 @@ urlpatterns = [
     path("book-third/<int:id>", views.BookingThird.as_view(), name="book-third"),
     path("book-third/confirm/", views.ConfirmBooking.as_view(), name="confirm"),
     
-    
     path("viewbooking/", views.ViewBooking.as_view(), name="viewbook"),
     path("erp/", views.ERPPage.as_view(), name="erp"),
     path("erp/add-location/", views.AddLocationPage.as_view(), name="add-location"),
     path("erp/manage-location/", views.ManageLocationPage.as_view(), name="manage-location"),
     path("erp/edit-location/<int:id>/", views.EditLocationPage.as_view(), name="edit-location"),
     path("erp/delete-location/<int:id>/", views.delete_location, name="delete-location"),
-
-
 ]
