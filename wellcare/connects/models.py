@@ -18,10 +18,16 @@ class Location(models.Model):
         ('unavailable', 'Unavailable'),
     ]
 
+    STATUS_CHOICES = [
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+        ('maintenance', 'Maintenance'),
+    ]
+
     name = models.CharField(max_length=100)
     opening = models.TimeField()
     closing = models.TimeField()
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
     booking_status = models.CharField(max_length=20, choices=BOOKING_CHOICES, default='available')
     staff = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -30,9 +36,9 @@ class Location(models.Model):
         return self.name
     
 class Booking(models.Model):
-    booker = models.CharField()
-    phone = models.CharField()
-    symptoms = models.CharField()
+    booker = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    symptoms = models.CharField(max_length=255)
     date_reserve = models.DateField()
     time_reserve = models.TimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)

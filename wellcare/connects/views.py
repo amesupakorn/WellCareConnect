@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-from .models import Disease
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Disease, Location, Booking
+from django.contrib.auth.models import User
 # Create your views here.
 class HomePage(View):
     def get(self, request):
@@ -301,12 +303,106 @@ class ViewBooking(APIView):
         
         except Exception as e:
             return Response({'detail': 'An error occurred: ' + str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-class ChatPage(View):
+
+class ERPPage(LoginRequiredMixin, View):
+    login_url = '/admin/login/'  # Redirect to admin login for now if not logged in
+    
     def get(self, request):
-        return render(request, 'chatbot/chat.html',{
+        # If superuser, show all bookings. If staff, show only their location's bookings.
+        if request.user.is_superuser:
+            bookings = Booking.objects.all().order_by('-date_reserve', '-time_reserve')
+        else:
+            bookings = Booking.objects.filter(location__staff=request.user).order_by('-date_reserve', '-time_reserve')
             
+        # Stats
+        total_bookings = bookings.count()
+        today = datetime.now().date()
+        today_bookings = bookings.filter(date_reserve=today).count()
+        
+        return render(request, 'erp/dashboard.html', {
+            'bookings': bookings,
+            'total_bookings': total_bookings,
+            'today_bookings': today_bookings,
         })
+
+class AddLocationPage(LoginRequiredMixin, View):
+    login_url = '/admin/login/'
+    
+    def get(self, request):
+        # Fetch users who are not yet staff of any location (to satisfy OneToOne)
+        # or just all users for simplicity in this demo
+        users = User.objects.all()
+        return render(request, 'erp/add_location.html', {'users': users})
+        
+    def post(self, request):
+        name = request.POST.get('name')
+        opening = request.POST.get('opening')
+        closing = request.POST.get('closing')
+        status = request.POST.get('status')
+        booking_status = request.POST.get('booking_status', 'available')
+        staff_id = request.POST.get('staff')
+        
+        try:
+            staff_user = User.objects.get(id=staff_id)
+            Location.objects.create(
+                name=name,
+                opening=opening,
+                closing=closing,
+                status=status,
+                booking_status=booking_status,
+                staff=staff_user
+            )
+            return redirect('erp')
+        except Exception as e:
+            users = User.objects.all()
+            return render(request, 'erp/add_location.html', {
+                'users': users,
+                'error': str(e)
+            })
+
+class ManageLocationPage(LoginRequiredMixin, View):
+    login_url = '/admin/login/'
+    
+    def get(self, request):
+        locations = Location.objects.all().order_by('name')
+        return render(request, 'erp/manage_location.html', {'locations': locations})
+
+class EditLocationPage(LoginRequiredMixin, View):
+    login_url = '/admin/login/'
+    
+    def get(self, request, id):
+        location = get_object_or_404(Location, id=id)
+        users = User.objects.all()
+        return render(request, 'erp/edit_location.html', {'location': location, 'users': users})
+        
+    def post(self, request, id):
+        location = get_object_or_404(Location, id=id)
+        location.name = request.POST.get('name')
+        location.opening = request.POST.get('opening')
+        location.closing = request.POST.get('closing')
+        location.status = request.POST.get('status')
+        location.booking_status = request.POST.get('booking_status')
+        staff_id = request.POST.get('staff')
+        
+        try:
+            location.staff = User.objects.get(id=staff_id)
+            location.save()
+            return redirect('manage-location')
+        except Exception as e:
+            users = User.objects.all()
+            return render(request, 'erp/edit_location.html', {
+                'location': location,
+                'users': users,
+                'error': str(e)
+            })
+
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/admin/login/')
+def delete_location(request, id):
+    location = get_object_or_404(Location, id=id)
+    location.delete()
+    return redirect('manage-location')
+        
         
 
 import json

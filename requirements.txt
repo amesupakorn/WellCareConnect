@@ -1,7 +1,10 @@
 gunicorn
 Django>=3.2,<4.0
-psycopg2>=2.9
-rest_framework
+psycopg2-binary>=2.9
 djangorestframework
-rest_framework.authtoken
 twilio
+whitenoise
+dj-database-url
+python-dotenv
+googletrans==4.0.0-rc1
+requests

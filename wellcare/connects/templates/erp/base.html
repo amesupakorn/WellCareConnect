@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WellCare ERP - {% block title %}แดชบอร์ด{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+        body { font-family: 'Kanit', sans-serif; }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-slate-50 min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 text-white flex-shrink-0 hidden md:flex flex-col">
+        <div class="p-6">
+            <div class="text-2xl font-bold text-blue-400 flex items-center gap-2">
+                <i class="fas fa-hospital-user"></i>
+                <span>WellCare ERP</span>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 space-y-2">
+            <a href="{% url 'erp' %}" class="flex items-center gap-3 p-3 {% if request.resolver_match.url_name == 'erp' %}bg-blue-600 text-white{% else %}hover:bg-slate-800 text-slate-300{% endif %} rounded-lg transition-all">
+                <i class="fas fa-calendar-check w-5"></i>
+                <span>รายการจองทั้งหมด</span>
+            </a>
+            <a href="{% url 'manage-location' %}" class="flex items-center gap-3 p-3 {% if 'location' in request.resolver_match.url_name %}bg-blue-600 text-white{% else %}hover:bg-slate-800 text-slate-300{% endif %} rounded-lg transition-all">
+                <i class="fas fa-map-marker-alt w-5"></i>
+                <span>จัดการสถานที่</span>
+            </a>
+            <a href="{% url 'add-location' %}" class="flex items-center gap-3 p-3 {% if request.resolver_match.url_name == 'add-location' %}bg-blue-600 text-white{% else %}hover:bg-slate-800 text-slate-300{% endif %} rounded-lg transition-all">
+                <i class="fas fa-plus-circle w-5"></i>
+                <span>เพิ่มสถานที่ใหม่</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <div class="flex items-center gap-3 p-2">
+                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                    {{ request.user.username|slice:":1"|upper }}
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-sm font-medium truncate">{{ request.user.username }}</p>
+                    <p class="text-xs text-slate-400">เจ้าหน้าที่โรงพยาบาล</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-slate-200 h-16 flex items-center justify-between px-8">
+            <h1 class="text-xl font-semibold text-slate-800">{% block page_title %}{% endblock %}</h1>
+            <div class="flex items-center gap-4">
+                <a href="{% url 'home' %}" class="text-sm text-slate-500 hover:text-blue-600">กลับหน้าหลัก</a>
+                <div class="h-4 w-px bg-slate-200 mx-2"></div>
+                <a href="/admin/logout/" class="text-sm text-red-600 hover:text-red-700 font-medium">ออกจากระบบ</a>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="flex-1 overflow-y-auto p-8">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
