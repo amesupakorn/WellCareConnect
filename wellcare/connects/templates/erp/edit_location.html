@@ -1,0 +1,81 @@
+{% extends 'erp/base.html' %}
+{% load static %}
+
+{% block title %}แก้ไขสถานที่{% endblock %}
+{% block page_title %}แก้ไขข้อมูลสถานที่: {{ location.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div class="p-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                <i class="fas fa-edit text-indigo-500"></i>
+                <span>แก้ไขข้อมูลสถานที่</span>
+            </h2>
+            
+            {% if error %}
+            <div class="mb-6 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm flex items-center gap-3">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>{{ error }}</span>
+            </div>
+            {% endif %}
+
+            <form method="POST" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">ชื่อสถานที่</label>
+                    <input type="text" name="name" value="{{ location.name }}" required 
+                        class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">เวลาเปิด</label>
+                        <input type="time" name="opening" value="{{ location.opening|time:'H:i' }}" required 
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">เวลาปิด</label>
+                        <input type="time" name="closing" value="{{ location.closing|time:'H:i' }}" required 
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">สถานะ (Status)</label>
+                    <select name="status" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                        <option value="open" {% if location.status == 'open' %}selected{% endif %}>Open (เปิดให้บริการ)</option>
+                        <option value="closed" {% if location.status == 'closed' %}selected{% endif %}>Closed (ปิดให้บริการ)</option>
+                        <option value="maintenance" {% if location.status == 'maintenance' %}selected{% endif %}>Maintenance (ปิดปรับปรุง)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">สถานะการจอง</label>
+                    <select name="booking_status" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                        <option value="available" {% if location.booking_status == 'available' %}selected{% endif %}>Available (เปิดให้จอง)</option>
+                        <option value="unavailable" {% if location.booking_status == 'unavailable' %}selected{% endif %}>Unavailable (ปิดการจอง)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-2">เจ้าหน้าที่ดูแล (Staff)</label>
+                    <select name="staff" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all">
+                        {% for user in users %}
+                        <option value="{{ user.id }}" {% if location.staff.id == user.id %}selected{% endif %}>{{ user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+                        <i class="fas fa-check-circle"></i>
+                        <span>อัปเดตข้อมูลสถานที่</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

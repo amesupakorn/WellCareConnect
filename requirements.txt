@@ -1,6 +1,10 @@
 gunicorn
 Django>=3.2,<4.0
-psycopg2>=2.9
-googletrans==4.0.0-rc1
-djangorestframework>=3.12,<3.13
+psycopg2-binary>=2.9
+djangorestframework
 twilio
+whitenoise
+dj-database-url
+python-dotenv
+googletrans==4.0.0-rc1
+requests

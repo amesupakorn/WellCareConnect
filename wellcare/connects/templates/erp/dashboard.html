@@ -1,0 +1,113 @@
+{% extends 'erp/base.html' %}
+{% load static %}
+
+{% block title %}แดชบอร์ดจัดการการจอง{% endblock %}
+{% block page_title %}แดชบอร์ดระบบจัดการการจอง{% endblock %}
+
+{% block content %}
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600 text-xl">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">+12%</span>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">รายการจองทั้งหมด</p>
+        <h3 class="text-3xl font-bold text-slate-800">{{ total_bookings }}</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+                <i class="fas fa-clock"></i>
+            </div>
+            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-2 py-1 rounded-full">วันนี้</span>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">รายการจองใหม่วันนี้</p>
+        <h3 class="text-3xl font-bold text-slate-800">{{ today_bookings }}</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600 text-xl">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <span class="text-xs font-medium text-slate-400">N/A</span>
+        </div>
+        <p class="text-slate-500 text-sm font-medium">สถานะระบบ</p>
+        <h3 class="text-3xl font-bold text-slate-800">Online</h3>
+    </div>
+</div>
+
+<!-- Booking Table -->
+<div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+    <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <h2 class="font-bold text-slate-800">รายการผู้ที่เข้ามาจองล่าสุด</h2>
+        <div class="relative w-64">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">
+                <i class="fas fa-search text-sm"></i>
+            </span>
+            <input type="text" placeholder="ค้นหาชื่อหรือเบอร์โทร..." class="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left">
+            <thead>
+                <tr class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wider font-semibold">
+                    <th class="px-6 py-4">ผู้จอง</th>
+                    <th class="px-6 py-4">เบอร์โทรศัพท์</th>
+                    <th class="px-6 py-4">สถานที่</th>
+                    <th class="px-6 py-4">วันที่ - เวลา</th>
+                    <th class="px-6 py-4">อาการเบื้องต้น</th>
+                    <th class="px-6 py-4">สถานะ</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for booking in bookings %}
+                <tr class="hover:bg-slate-50/80 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-xs">
+                                {{ booking.booker|slice:":1"|upper }}
+                            </div>
+                            <span class="font-medium text-slate-700">{{ booking.booker }}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-slate-600">{{ booking.phone }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-md">
+                            {{ booking.location.name }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-sm text-slate-700 font-medium">{{ booking.date_reserve }}</p>
+                        <p class="text-xs text-slate-400">{{ booking.time_reserve|time:"H:i" }} น.</p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-sm text-slate-600 truncate w-40" title="{{ booking.symptoms }}">
+                            {{ booking.symptoms }}
+                        </p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 bg-green-50 text-green-600 text-[10px] font-bold uppercase tracking-wide rounded-full border border-green-100">
+                            ยืนยันแล้ว
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="px-6 py-12 text-center text-slate-400 italic">
+                        <div class="flex flex-col items-center gap-2">
+                            <i class="fas fa-folder-open text-4xl mb-2"></i>
+                            <p>ยังไม่มีข้อมูลการจองในขณะนี้</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

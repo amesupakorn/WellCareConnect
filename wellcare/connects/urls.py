@@ -23,7 +23,6 @@ urlpatterns = [
     path('third-3/', views.ServiceThird3.as_view(), name="third-3"),
     path('third-4/', views.ServiceThird4.as_view(), name="third-4"),
     
-    path('chat/', views.ChatPage.as_view(), name="chat"),
 
     path('webhook/', views.HealthWebhookView.as_view(), name="webhook"),
 
@@ -37,6 +36,11 @@ urlpatterns = [
     
     
     path("viewbooking/", views.ViewBooking.as_view(), name="viewbook"),
+    path("erp/", views.ERPPage.as_view(), name="erp"),
+    path("erp/add-location/", views.AddLocationPage.as_view(), name="add-location"),
+    path("erp/manage-location/", views.ManageLocationPage.as_view(), name="manage-location"),
+    path("erp/edit-location/<int:id>/", views.EditLocationPage.as_view(), name="edit-location"),
+    path("erp/delete-location/<int:id>/", views.delete_location, name="delete-location"),
 
 
 ]
