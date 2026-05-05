@@ -1,75 +1,81 @@
+{% extends 'base_patient.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WellCare</title>
-    <link rel="icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{% static 'css/layout.css'%}">
-    <script src="https://cdn.tailwindcss.com"></script>
+{% block title %}WellCareConnect | เลือกโรงพยาบาล{% endblock %}
 
-</head>
-<body class="bg-gray-50">
-
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600" >
-            <span>WellCareConnect</span>
-        </div>
-        <div class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'home' %}';">
-            <span>ย้อนกลับ</span>
+{% block content %}
+<div class="relative pb-24">
+    <!-- Hero Background -->
+    <div class="relative h-64 md:h-80 overflow-hidden">
+        <img src="{% static 'image/clinic.jpeg' %}" alt="Clinic" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-blue-900/40 flex items-center justify-center">
+            <h1 class="text-4xl md:text-5xl text-white font-bold text-center">เลือกโรงพยาบาล</h1>
         </div>
     </div>
 
-    <div class="relative">
-        <!-- ภาพพื้นหลัง -->
-        <img src="{% static 'image/clinic.jpeg' %}" alt="Background Image" class="w-full h-[300px] object-cover">
-        
-    </div>
-
-    <!-- Cards Container -->
-    <div class=" container mx-auto max-w-4xl p-6 overflow-y-auto space-y-4">
-
-        <div class="text-2xl font-semibold mb-8">
-            เลือกโรงพยาบาล
-        </div>
-
-        <!-- Card 1 -->
-        {% for location in locations %}
-        <a href="{% url 'book-first' location.id %}" class="block">
-            <div class="bg-white rounded-lg shadow p-4 transition duration-300 hover:bg-blue-100 active:bg-blue-300 cursor-pointer">
-                <div class="flex items-center space-x-3">
-                    <img src="{% static 'image/kmitl.jpg' %}" alt="icon" class="w-[80px] h-[80px] object-cover">
-                    <div>
-                        <h3 class="text-lg font-bold">{{ location.name }}</h3>
-                        <p class="text-gray-500">ยินดีต้อนรับ พร้อมดูแลทุกคน</p>
-                    </div>
+    <!-- Hospital List -->
+    <div class="container mx-auto max-w-4xl px-6 -mt-16 relative z-10">
+        <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-slate-100">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="bg-blue-100 p-2 rounded-xl text-blue-600">
+                    <i data-lucide="hospital" class="w-6 h-6"></i>
                 </div>
+                <h2 class="text-2xl font-bold text-slate-800">โรงพยาบาลในเครือข่าย</h2>
             </div>
-        </a>
-        {% endfor %}
 
+            <div class="grid gap-6 mb-12">
+                {% for location in locations %}
+                <a href="{% url 'book-first' location.id %}" class="group">
+                    <div
+                        class="bg-white rounded-2xl border border-slate-100 p-5 flex items-center gap-6 transition-all hover:border-blue-200 hover:bg-blue-50 hover:shadow-md">
+                        <div class="w-20 h-20 rounded-xl overflow-hidden shadow-inner flex-shrink-0">
+                            <img src="{% static 'image/kmitl.jpg' %}" alt="Hospital"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-xl font-bold text-slate-800 group-hover:text-blue-600 transition-colors">{{ location.name }}</h3>
+                            <p class="text-slate-500">เปิดให้บริการ: {{ location.opening }} - {{ location.closing }} น.</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span
+                                    class="inline-flex items-center gap-1 text-xs font-bold uppercase px-2 py-1 rounded-md {% if location.status == 'open' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}">
+                                    {{ location.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    <p class="text-slate-400">ยังไม่มีรายชื่อโรงพยาบาลในระบบ</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            const successMessage = localStorage.getItem('bookingSuccess');
-            
-            if (successMessage) {
-                // ใช้ SweetAlert เพื่อแสดงข้อความแจ้งเตือน
-                Swal.fire({
-                    icon: "success",
-                    title: successMessage,
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-        
-                // ลบข้อความแจ้งเตือนออกจาก Local Storage หลังจากแสดงเสร็จแล้ว
-                localStorage.removeItem('bookingSuccess');
-            }
-        });
-    </script>
-</body>
-</html>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const successMessage = localStorage.getItem('bookingSuccess');
+        if (successMessage) {
+            Swal.fire({
+                icon: "success",
+                title: "สำเร็จ",
+                text: successMessage,
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    popup: 'rounded-3xl'
+                }
+            });
+            localStorage.removeItem('bookingSuccess');
+        }
+    });
+</script>
+{% endblock %}

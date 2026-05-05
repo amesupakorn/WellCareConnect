@@ -1,51 +1,80 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | สิทธิรักษาพยาบาล สำหรับผู้สูงอายุ{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-third' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-third' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
+        
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ</h1>
+                <p class="text-blue-100 text-lg">ทำความเข้าใจความแตกต่างของสิทธิบัตรทองและประกันสังคม</p>
+            </div>
 
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-third" %}';">
-            ย้อนกลับ
-        </button>
-    </div>
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Overview -->
+                <section>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        ผู้สูงอายุในประเทศไทยมีสิทธิขั้นพื้นฐานในการรักษาพยาบาลหลังเกษียณ ไม่ว่าจะเป็น <span class="font-bold text-blue-600">สิทธิหลักประกันสุขภาพ (บัตรทอง)</span> หรือ <span class="font-bold text-blue-600">สิทธิประกันสังคม</span> ซึ่งมีเงื่อนไขและความคุ้มครองที่แตกต่างกันดังนี้:
+                    </p>
+                </section>
 
-    <!-- Main content -->
-    <div class="container max-w-screen-lg mx-auto px-8 py-5">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Section: บัตรทอง -->
+                    <section class="bg-amber-50 p-8 rounded-3xl border border-amber-100 h-full">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-amber-500 text-white p-2 rounded-xl">
+                                <i data-lucide="credit-card" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-amber-800">สิทธิ "บัตรทอง"</h2>
+                        </div>
+                        <div class="space-y-4 text-amber-900/80">
+                            <p class="leading-relaxed">
+                                คนไทยทุกคนสามารถใช้สิทธิบัตรทองรักษาได้ <span class="font-bold underline">ตลอดชีวิตไม่มีวันหมดอายุ</span> ครอบคลุมการรักษาโรคทั่วไป การตรวจสุขภาพ และโรคร้ายแรงเรื้อรัง
+                            </p>
+                            <div class="bg-white/50 p-4 rounded-xl border border-amber-200">
+                                <p class="text-xs font-bold text-amber-800 uppercase mb-2 italic">ข้อกำหนดสำคัญ</p>
+                                <p class="text-sm">ต้องไม่เป็นผู้ถือสิทธิอื่น เช่น ประกันสังคม รัฐวิสาหกิจ หรือข้าราชการ</p>
+                            </div>
+                        </div>
+                    </section>
 
-        <!-- Section 1: สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">สิทธิรักษาพยาบาลขั้นพื้นฐานในวัยเกษียณ</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                ผู้สูงอายุในประเทศไทยมีสิทธิขั้นพื้นฐานในการรักษาพยาบาลหลังเกษียณ ไม่ว่าจะเป็นสิทธิหลักประกันสุขภาพ หรือสิทธิประกันสังคม ดังนี้:
-            </p>
-        </div>
-
-        <!-- Section 2: สิทธิประกันสังคม -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg mb-5">
-                <div class="bg-purple-200 p-4 rounded-lg shadow text-gray-700">
-                    <h3 class="font-semibold mb-2">สิทธิ "บัตรทอง" </h3>
-                    <p class="text-gray-700 text-lg mb-4">
-                        คนไทยทุกคนสามารถใช้สิทธิบัตรทองรักษาได้ตลอดชีวิตไม่มีวันหมดอายุ ครอบคลุมการรักษาโรคทั่วไป เช่น การตรวจสุขภาพ การคัดกรองโรค รวมถึงการรักษาอาการเจ็บป่วยทางกายและจิตใจ เช่น โรคซึมเศร้า และโรคร้ายแรงเรื้อรัง โดยคุ้มครองค่าใช้จ่ายตามการวินิจฉัยของแพทย์.
-                    </p>
-                    <p class="text-gray-700 text-lg">
-                        ทั้งนี้ ผู้ใช้สิทธิบัตรทองต้องไม่เป็นผู้ถือสิทธิอื่น เช่น สิทธิประกันสังคม, สิทธิรัฐวิสาหกิจ หรือสิทธิข้าราชการ.
-                    </p>
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
-                    <h3 class="font-semibold mb-2">สิทธิประกันสังคม</h3>
-                    <p class="text-gray-700 text-lg mb-4">
-                        หากผู้สูงอายุต้องการคงสถานภาพสมาชิกประกันสังคมไว้ เพื่อยังคงสิทธิรักษาพยาบาล จะต้องสมัครมาตรา 39 ภายใน 6 เดือนหลังออกจากงาน โดยจะต้องจ่ายเงินสมทบเดือนละ 432 บาท.
-                    </p>
-                    <p class="text-gray-700 text-lg mb-4">
-                        สิทธิประกันสังคมจะคุ้มครองการรักษาอาการเจ็บป่วยทั่วไป และเมื่อเจ็บป่วยฉุกเฉินสามารถเข้ารับบริการโรงพยาบาลใกล้เคียงได้ โดยผู้ประกันตนสามารถสำรองจ่ายค่ารักษาก่อนแล้วจึงเบิกคืนจากประกันสังคม.
-                    </p>
+                    <!-- Section: ประกันสังคม -->
+                    <section class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100 h-full">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-indigo-600 text-white p-2 rounded-xl">
+                                <i data-lucide="shield-plus" class="w-6 h-6"></i>
+                            </div>
+                            <h2 class="text-2xl font-bold text-indigo-800">สิทธิประกันสังคม</h2>
+                        </div>
+                        <div class="space-y-4 text-indigo-900/80">
+                            <p class="leading-relaxed">
+                                หากต้องการคงสถานภาพสมาชิกเพื่อรับสิทธิรักษาต่อ ต้องสมัคร <span class="font-bold">มาตรา 39</span> ภายใน 6 เดือนหลังออกจากงาน (จ่ายสมทบเดือนละ 432 บาท)
+                            </p>
+                            <div class="bg-white/50 p-4 rounded-xl border border-indigo-200">
+                                <p class="text-xs font-bold text-indigo-800 uppercase mb-2 italic">ข้อดีหลัก</p>
+                                <p class="text-sm">ครอบคลุมอาการเจ็บป่วยทั่วไป และสามารถสำรองจ่ายเพื่อเบิกคืนในกรณีฉุกเฉินได้</p>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
-        </div>
+        </article>
     </div>
-
-{% endblock%}
+</div>
+{% endblock %}

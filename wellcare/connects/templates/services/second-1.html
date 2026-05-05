@@ -1,54 +1,100 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | เงินชราภาพประกันสังคม คืออะไร?{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-sec' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-sec' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
-            ย้อนกลับ
-        </button>
-    </div>
-
-    <!-- Main content -->
-    <div class="container max-w-screen-lg mx-auto px-8 py-5">
-        <!-- Cards Container -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Section 1: เงินชราภาพ ประกันสังคม คืออะไร? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">เงินชราภาพ ประกันสังคม คืออะไร?</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                เงินชราภาพ หรือเงินบำเหน็จบำนาญในระบบประกันสังคม เป็นเงินที่ผู้ประกันตนจะได้รับเมื่อถึงอายุที่กำหนดตามเงื่อนไขของแต่ละมาตราในประกันสังคม
-            </p>
-        </div>
-
-        <!-- Section 2: ใครบ้างมีสิทธิรับเงิน? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ใครบ้างมีสิทธิรับเงิน?</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                ผู้ที่มีสิทธิได้รับเงินชราภาพประกันสังคม แบ่งออกเป็น 2 กลุ่มหลัก:
-            </p>
-            
-            <!-- Group 1 -->
-            <div class="bg-purple-100 p-4 rounded-lg shadow mb-6">
-                <h3 class="font-semibold mb-2 text-lg">กลุ่มที่ 1: ผู้ประกันตนทั้ง 3 มาตรา (มาตรา 33, 39, 40)</h3>
-                <ul class="list-disc list-inside text-gray-700">
-                    <li>ผู้ประกันตนมาตรา 33 และ 39: ต้องมีอายุ 55 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</li>
-                    <li>ผู้ประกันตนมาตรา 40: ต้องมีอายุ 60 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</li>
-                </ul>
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
+        
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">เงินชราภาพประกันสังคม คืออะไร?</h1>
+                <p class="text-blue-100 text-lg">เงินออมสะสมเพื่อความมั่นคงในวัยเกษียณสำหรับผู้ประกันตน</p>
             </div>
 
-            <!-- Group 2 -->
-            <div class="bg-yellow-100 p-4 rounded-lg shadow">
-                <h3 class="font-semibold mb-2 text-lg">กลุ่มที่ 2: ทายาทของผู้ประกันตนที่เสียชีวิต</h3>
-                <ul class="list-disc list-inside text-gray-700">
-                    <li>ลูก หรือ ลูกบุญธรรมที่ชอบด้วยกฏหมาย</li>
-                    <li>สามี-ภรรยา ที่ถูกต้องตามกฎหมาย</li>
-                    <li>บิดา-มารดา ที่ยังมีชีวิตอยู่</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Section 1 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="help-circle" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">ความหมาย</h2>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl">
+                        <p class="text-slate-600 text-lg leading-relaxed">
+                            เงินชราภาพ หรือเงินบำเหน็จบำนาญในระบบประกันสังคม เป็นเงินที่ผู้ประกันตนจะได้รับเมื่อถึงอายุที่กำหนดตามเงื่อนไขของแต่ละมาตราในประกันสังคม เพื่อเป็นหลักประกันทางการเงินหลังสิ้นสุดการทำงาน
+                        </p>
+                    </div>
+                </section>
 
-{% endblock%}
+                <!-- Section 2 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">ใครบ้างมีสิทธิรับเงิน?</h2>
+                    </div>
+                    
+                    <div class="grid gap-6">
+                        <!-- Group 1 -->
+                        <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100">
+                            <h3 class="text-xl font-bold text-indigo-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="user-check" class="w-5 h-5"></i>
+                                กลุ่มที่ 1: ผู้ประกันตน (มาตรา 33, 39, 40)
+                            </h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start gap-3 text-indigo-700">
+                                    <i data-lucide="check" class="w-5 h-5 shrink-0 mt-0.5"></i>
+                                    <span><span class="font-bold">มาตรา 33 และ 39:</span> ต้องมีอายุ 55 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</span>
+                                </li>
+                                <li class="flex items-start gap-3 text-indigo-700">
+                                    <i data-lucide="check" class="w-5 h-5 shrink-0 mt-0.5"></i>
+                                    <span><span class="font-bold">มาตรา 40:</span> ต้องมีอายุ 60 ปีบริบูรณ์และแจ้งสิ้นสุดการเป็นผู้ประกันตน</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Group 2 -->
+                        <div class="bg-amber-50 p-8 rounded-3xl border border-amber-100">
+                            <h3 class="text-xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="heart" class="w-5 h-5"></i>
+                                กลุ่มที่ 2: ทายาทกรณีเสียชีวิต
+                            </h3>
+                            <div class="grid sm:grid-cols-3 gap-4">
+                                <div class="bg-white/50 p-4 rounded-xl border border-amber-200/50 text-center">
+                                    <p class="font-bold text-amber-800">ลูก / ลูกบุญธรรม</p>
+                                    <p class="text-xs text-amber-600 mt-1">ที่ถูกต้องตามกฎหมาย</p>
+                                </div>
+                                <div class="bg-white/50 p-4 rounded-xl border border-amber-200/50 text-center">
+                                    <p class="font-bold text-amber-800">คู่สมรส</p>
+                                    <p class="text-xs text-amber-600 mt-1">ที่ถูกต้องตามกฎหมาย</p>
+                                </div>
+                                <div class="bg-white/50 p-4 rounded-xl border border-amber-200/50 text-center">
+                                    <p class="font-bold text-amber-800">บิดา-มารดา</p>
+                                    <p class="text-xs text-amber-600 mt-1">ที่ยังมีชีวิตอยู่</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

@@ -1,60 +1,72 @@
 document.getElementById('start_date').addEventListener('change', function () {
-    const selectedDateValue = this.value;  // วันที่ที่ผู้ใช้เลือกจาก input
+    const selectedDateValue = this.value;
+    const timeSelectionSection = document.getElementById('timeSelectionSection');
+    const nextButton = document.getElementById('nextButton');
+
+    console.log('Date changed to:', selectedDateValue);
 
     if (selectedDateValue) {
-        document.getElementById('time_slots').classList.remove('hidden');
+        timeSelectionSection.classList.remove('hidden');
+        console.log('Showing time selection section');
     } else {
-        document.getElementById('time_slots').classList.add('hidden');
+        timeSelectionSection.classList.add('hidden');
+        nextButton.disabled = true;
+        return;
     }
 
-    const facilityId = location_id; 
+    const facilityId = typeof location_id !== 'undefined' ? location_id : null;
+    const selectedDate = new Date(selectedDateValue);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
-    const selectedDate = new Date(selectedDateValue);  // แปลง selectedDateValue เป็น Date object
-    const currentDate = new Date();  // วันที่ปัจจุบัน
-    const currentHours = currentDate.getHours();  // ชั่วโมงปัจจุบัน
+    const now = new Date();
+    const currentHours = now.getHours();
 
-    const timeButtons = document.querySelectorAll('button[data-time]');
+    const timeButtons = document.querySelectorAll('.time-slot');
 
-    // 1. ตรวจสอบว่าผู้ใช้เลือกวันที่ในอดีตหรือไม่
-    if (selectedDate < currentDate.setHours(0, 0, 0, 0)) {
-        // ถ้าวันที่อยู่ในอดีต ให้ปิดการใช้งานปุ่มทั้งหมด
-        timeButtons.forEach(button => {
-            button.disabled = true;  // ปิดการใช้งานปุ่ม
-            button.classList.remove('bg-blue-400', 'hover:bg-blue-600', 'text-white');
-            button.classList.add('border-blue-500', 'cursor-not-allowed', 'border');  // เปลี่ยนสีและลักษณะปุ่ม
-        });
-        alert("ไม่สามารถจองวันที่ในอดีตได้!");  // แจ้งเตือนผู้ใช้
+    // Reset all buttons
+    timeButtons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove('disabled', 'active');
+    });
+
+    // 1. Check if past date
+    if (selectedDate < currentDate) {
+        alert("ไม่สามารถจองวันที่ในอดีตได้!");
+        this.value = '';
+        timeSelectionSection.classList.add('hidden');
+        return;
     }
-    // 2. ตรวจสอบถ้าวันที่เลือกเป็นวันนี้
-    else if (selectedDate.toDateString() === currentDate.toDateString()) {
-        // ถ้าเป็นวันนี้ เปรียบเทียบชั่วโมงปัจจุบัน
-        timeButtons.forEach(button => {
-            const buttonHour = parseInt(button.getAttribute('data-time'), 10);  // ดึงชั่วโมงจาก data-time
 
-            // ปิดการใช้งานปุ่มหากเวลาในปุ่มน้อยกว่าหรือเท่ากับชั่วโมงปัจจุบัน
+    // 2. Check if today (disable past hours)
+    // AND check business hours
+    timeButtons.forEach(button => {
+        const buttonTimeStr = button.getAttribute('data-time'); // e.g., "09:00:00"
+        const buttonHour = parseInt(buttonTimeStr.split(':')[0], 10);
+        
+        // Check past hours if today
+        if (selectedDate.toDateString() === now.toDateString()) {
             if (buttonHour <= currentHours) {
-                button.disabled = true;  // ปิดการใช้งานปุ่ม
-                button.classList.remove('bg-blue-400', 'hover:bg-blue-600', 'text-white');
-                button.classList.add('border-blue-500', 'cursor-not-allowed', 'border');  // เปลี่ยนสีและลักษณะปุ่ม
-            } else {
-                button.disabled = false;  // เปิดใช้งานปุ่มสำหรับเวลาที่เหลือ
-                button.classList.add('bg-blue-400', 'hover:bg-blue-600', 'text-white');
-                button.classList.remove('border-blue-500', 'cursor-not-allowed', 'border', );  // เปลี่ยนสีและลักษณะปุ่ม
+                button.disabled = true;
+                button.classList.add('disabled');
+                return;
             }
-        });
-    }
-    // 3. ถ้าเลือกวันที่ในอนาคต
-    else {
-        // ถ้าเป็นวันในอนาคต ให้เปิดการใช้งานปุ่มทั้งหมด
-        timeButtons.forEach(button => {
-            button.disabled = false;  // เปิดใช้งานปุ่ม
-            button.classList.add('bg-blue-400', 'hover:bg-blue-600', 'text-white');
-            button.classList.remove('border-blue-500', 'cursor-not-allowed', 'border', );  // เปลี่ยนสีและลักษณะปุ่ม
-        });
-    }
-       
-    // ส่ง request ไปที่ backend เพื่อดึงเวลา checkin ที่จองแล้ว
-    fetch('check-available-times/', {
+        }
+
+        // Check business hours
+        if (typeof openingHour !== 'undefined' && typeof closingHour !== 'undefined') {
+            const openH = parseInt(openingHour.split(':')[0], 10);
+            const closeH = parseInt(closingHour.split(':')[0], 10);
+            
+            if (buttonHour < openH || buttonHour >= closeH) {
+                button.disabled = true;
+                button.classList.add('disabled');
+            }
+        }
+    });
+
+    // Fetch booked slots
+    fetch('/book-first/check-available-times/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -65,41 +77,46 @@ document.getElementById('start_date').addEventListener('change', function () {
             facility_id: facilityId
         })
     })
-    .then(response => response.json())
-    .then(data => {
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            console.log('Booked slots received:', data);
             data.forEach(bookedTime => {
-                const timeButton = document.querySelector(`[data-time="${bookedTime.time_reserve}"]`);
-
+                const timeStr = bookedTime.time_reserve;
+                const timeButton = document.querySelector(`.time-slot[data-time="${timeStr}"]`);
                 if (timeButton) {
-                    timeButton.disabled = true; 
-                    timeButton.classList.remove('bg-blue-400', 'hover:bg-blue-600', 'text-white');
-                    timeButton.classList.add('border-blue-500', 'cursor-not-allowed', 'border'); 
+                    timeButton.disabled = true;
+                    timeButton.classList.add('disabled');
+                    console.log('Disabled slot:', timeStr);
                 }
             });
         })
-    .catch(error => console.error('Error fetching available times:', error));
+        .catch(error => {
+            console.error('Error fetching available times:', error);
+            // Optionally show error to user
+        });
 });
 
-// ทำให้ hover ค้างเมื่อคลิกปุ่ม
-const timeButtons = document.querySelectorAll('#time_slots button');
+// Use event delegation for time slot selection to handle dynamic updates
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('time-slot')) {
+        const button = e.target;
+        if (button.classList.contains('disabled')) return;
 
-timeButtons.forEach(button => {
-    button.addEventListener('click', function () {
+        console.log('Time slot selected:', button.getAttribute('data-time'));
 
-        // ลบเอฟเฟกต์ hover ค้างออกจากปุ่มทั้งหมดก่อน
-        timeButtons.forEach(btn => {
-            
-            if(!btn.classList.contains('cursor-not-allowed')){
-                btn.classList.remove('bg-blue-700');  // คลาสสำหรับ hover ค้าง
-                btn.classList.add('bg-blue-400');  // คลาสปกติ
-            }
-        });
+        // Remove active from all
+        document.querySelectorAll('.time-slot').forEach(btn => btn.classList.remove('active'));
 
-        // เพิ่มคลาสเพื่อให้เอฟเฟกต์ hover ค้างอยู่
-        this.classList.remove('bg-blue-400', 'hover:bg-blue-600');
-        this.classList.add('bg-blue-700');  // คลาสสำหรับสถานะที่เลือก
+        // Add active to selected
+        button.classList.add('active');
 
-        selectedTime = this.getAttribute('data-time');
-        document.getElementById('selected_time').value = selectedTime;
-    });
+        // Update hidden input
+        document.getElementById('selected_time').value = button.getAttribute('data-time');
+
+        // Enable next button
+        document.getElementById('nextButton').disabled = false;
+    }
 });

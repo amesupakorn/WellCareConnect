@@ -117,7 +117,11 @@ class CheckAvailableTimes(View):
         if selected_date and facility_id:
             selected_date = parse_date(selected_date)
             bookings = Booking.objects.filter(date_reserve=selected_date, location_id=facility_id).values('time_reserve')
-            return JsonResponse(list(bookings), safe=False)
+            # Format time objects to string for JSON serialization
+            result = []
+            for b in bookings:
+                result.append({'time_reserve': b['time_reserve'].strftime('%H:%M:%S')})
+            return JsonResponse(result, safe=False)
         return JsonResponse([], safe=False)
 
 class BookingSecond(View):
@@ -156,7 +160,7 @@ class BookingThird(View):
         symptoms = request.POST.get('symptoms')
         phone = request.POST.get('phone')
 
-        if all([date, time, firstname, lastname, symptoms, phone]):
+        if all([date, time, firstname, lastname, phone]):
             return render(request, "booking/book-third.html", {
                 'location': location,
                 'time_start': time,
@@ -196,8 +200,10 @@ def send_sms(to_number, message_body):
 
 class ConfirmBooking(APIView):
     permission_classes = [AllowAny]
-    def post(self, request):
-        serializer = ReserveSerializer(data=request.data)
+    def post(self, request, id):
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        data['location'] = id
+        serializer = ReserveSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             # phone = format_phone_number(request.data.get('phone'))

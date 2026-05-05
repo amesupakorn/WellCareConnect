@@ -1,89 +1,112 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | ลงทะเบียนรับสิทธิต้องทำอย่างไร{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-first' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-first' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
-            
-            ย้อนกลับ
-        </button>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container mx-auto p-6">
-
-        <!-- Section 1: ลงทะเบียนรับสิทธิต้องทำอย่างไร -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ลงทะเบียนรับสิทธิต้องทำอย่างไร</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                ผู้สูงอายุที่มีอายุตั้งแต่ 59 ปีบริบูรณ์สามารถไปลงทะเบียนรับเบี้ยยังชีพล่วงหน้าได้ตั้งแต่วันที่ 1 ตุลาคม ของปีนั้น และเมื่ออายุครบ 60 ปีบริบูรณ์ในปีถัดไป จะได้รับเบี้ยผู้สูงอายุตั้งแต่เดือนตุลาคม
-            </p>
-            <p class="text-gray-700 text-lg mb-4">
-                ผู้สูงอายุสามารถลงทะเบียนล่วงหน้าได้ตั้งแต่เดือนตุลาคมของทุกปี โดยจะต้องเป็นผู้ที่เกิดก่อนวันที่ 2 กันยายน – 1 ตุลาคม ของปีนั้น ๆ จึงจะมีสิทธิได้รับเบี้ยยังชีพผู้สูงอายุในปีถัดไป
-            </p>
-        </div>
-
-        <!-- Section 2: หลักฐานการลงทะเบียน -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">หลักฐานการลงทะเบียนรับเบี้ยยังชีพผู้สูงอายุ</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
-                    <h3 class="font-semibold mb-2">กรณีลงทะเบียนด้วยตนเอง:</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>สำเนาบัตรประจำตัวประชาชน จำนวน 1 ชุด</li>
-                        <li>สำเนาทะเบียนบ้าน จำนวน 1 ชุด</li>
-                        <li>สำเนาสมุดบัญชีเงินฝาก (ออมทรัพย์) จำนวน 1 ชุด</li>
-                    </ul>
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
-                    <h3 class="font-semibold mb-2">กรณีผู้มอบอำนาจ:</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>หนังสือมอบอำนาจ</li>
-                        <li>สำเนาบัตรประจำตัวประชาชน พร้อมสำเนา 1 ชุด</li>
-                        <li>สำเนาทะเบียนบ้าน พร้อมสำเนา 1 ชุด</li>
-                    </ul>
-                </div>
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
+        
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">ลงทะเบียนรับสิทธิต้องทำอย่างไร</h1>
+                <p class="text-blue-100 text-lg">ขั้นตอนและวิธีการเตรียมตัวเพื่อรักษาสิทธิของคุณ</p>
             </div>
-        </div>
 
-        <!-- Section 3: ขั้นตอนการยื่นขึ้นทะเบียน -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขั้นตอนการยื่นขึ้นทะเบียน</h2>
-            <ul class="list-disc list-inside text-gray-700 text-lg">
-                <li>ประกาศและประชาสัมพันธ์ให้ผู้สูงอายุทราบสิทธิของตนเอง</li>
-                <li>ลงทะเบียนตามวัน เวลา สถานที่ที่กำหนด (ในวันและเวลาราชการ)</li>
-                <li>ให้ผู้สูงอายุลงทะเบียนตามแบบฟอร์มรับเงินเบี้ยยังชีพด้วยตนเอง</li>
-            </ul>
-        </div>
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Section 1 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="calendar" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">ช่วงเวลาการลงทะเบียน</h2>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl space-y-4">
+                        <p class="text-slate-600 leading-relaxed">
+                            ผู้สูงอายุที่มีอายุตั้งแต่ 59 ปีบริบูรณ์สามารถไปลงทะเบียนรับเบี้ยยังชีพล่วงหน้าได้ตั้งแต่วันที่ <span class="font-bold text-blue-600">1 ตุลาคม ของปีนั้น</span> และเมื่ออายุครบ 60 ปีบริบูรณ์ในปีถัดไป จะได้รับเบี้ยผู้สูงอายุตั้งแต่เดือนตุลาคม
+                        </p>
+                    </div>
+                </section>
 
-        <!-- Section 4: สถานที่ในการขึ้นทะเบียน -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">สถานที่ในการขึ้นทะเบียน</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-700 text-lg mt-4">
-                <div class="bg-blue-100 p-4 rounded-lg shadow">
-                    <h3 class="font-semibold mb-2">จุดบริการใน กทม.:</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>สำนักงานเขต 50 เขต</li>
-                    </ul>
-                </div>
-                <div class="bg-blue-100 p-4 rounded-lg shadow">
-                    <h3 class="font-semibold mb-2">กระทรวงการพัฒนาสังคมและความมั่นคงของมนุษย์ (พม.)</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>ฝ่ายพัฒนาชุมชนและสวัสดิการสังคมสำนักงานเขตป้อมปราบ ศัตรูพ่าย กทม.โทร.0-2282-4196/</li>
-                    </ul>
-                </div>
-                <div class="bg-blue-100 p-4 rounded-lg shadow">
-                    <h3 class="font-semibold mb-2">องค์การปกครองส่วนท้องถิ่น:</h3>
-                    <ul class="list-disc list-inside text-gray-700">
-                        <li>อบต. (องค์การบริหารส่วนตำบล)</li>
-                        <li>เทศบาลที่มีชื่ออยู่ในทะเบียนบ้าน</li>
-                    </ul>
-                </div>
+                <!-- Section 2 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="file-text" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">หลักฐานที่ต้องเตรียม</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                            <h3 class="font-bold text-indigo-800 mb-4">กรณีลงทะเบียนด้วยตนเอง</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2 text-indigo-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> สำเนาบัตรประชาชน
+                                </li>
+                                <li class="flex items-center gap-2 text-indigo-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> สำเนาทะเบียนบ้าน
+                                </li>
+                                <li class="flex items-center gap-2 text-indigo-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> สำเนาสมุดบัญชีเงินฝาก
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                            <h3 class="font-bold text-amber-800 mb-4">กรณีมอบอำนาจ</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-center gap-2 text-amber-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> หนังสือมอบอำนาจ
+                                </li>
+                                <li class="flex items-center gap-2 text-amber-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> สำเนาบัตรประชาชนผู้รับมอบ
+                                </li>
+                                <li class="flex items-center gap-2 text-amber-700">
+                                    <i data-lucide="check" class="w-4 h-4"></i> สำเนาทะเบียนบ้านผู้รับมอบ
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">สถานที่รับลงทะเบียน</h2>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <p class="font-bold text-slate-700 mb-1">กรุงเทพฯ</p>
+                            <p class="text-sm text-slate-500">สำนักงานเขต 50 เขต</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <p class="font-bold text-slate-700 mb-1">ต่างจังหวัด</p>
+                            <p class="text-sm text-slate-500">อบต. หรือ เทศบาล</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 text-center">
+                            <p class="font-bold text-slate-700 mb-1">หน่วยงานกลาง</p>
+                            <p class="text-sm text-slate-500">พม. และ พมจ. ทั่วประเทศ</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
+        </article>
     </div>
-
+</div>
 {% endblock %}

@@ -29,7 +29,7 @@ class Location(models.Model):
     closing = models.TimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
     booking_status = models.CharField(max_length=20, choices=BOOKING_CHOICES, default='available')
-    staff = models.OneToOneField(User, on_delete=models.CASCADE)
+    staff = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 
 
     def __str__(self):
@@ -38,7 +38,7 @@ class Location(models.Model):
 class Booking(models.Model):
     booker = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    symptoms = models.CharField(max_length=255)
+    symptoms = models.CharField(max_length=255, blank=True, null=True)
     date_reserve = models.DateField()
     time_reserve = models.TimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)

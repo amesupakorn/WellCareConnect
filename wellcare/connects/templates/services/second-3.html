@@ -1,95 +1,101 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่?{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-sec' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-sec' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
+        
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่?</h1>
+                <p class="text-blue-100 text-lg">เจาะลึกวิธีคำนวณเงินสะสมและการวางแผนการเงินหลังเกษียณ</p>
+            </div>
 
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url "service-sec" %}';">
-            ย้อนกลับ
-        </button>
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Section: การคำนวณบำนาญ -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="calculator" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">การคำนวณเงินบำนาญรายเดือน</h2>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            เมื่อจ่ายเงินสมทบครบ 180 เดือน (15 ปี) จะได้รับบำนาญเริ่มต้นที่ <span class="font-bold text-blue-600">20% ของค่าจ้างเฉลี่ย 60 เดือนสุดท้าย</span> (สูงสุด 15,000 บาท)
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                                <p class="text-xs font-bold text-slate-400 uppercase mb-2">สูตรพื้นฐาน</p>
+                                <p class="text-lg font-bold text-slate-700">ค่าจ้างเฉลี่ย x 20%</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                                <p class="text-xs font-bold text-slate-400 uppercase mb-2">กรณีจ่ายเกิน 15 ปี</p>
+                                <p class="text-lg font-bold text-slate-700">+1.5% ทุกๆ 12 เดือน</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: การคำนวณบำเหน็จ -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="wallet" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">การคำนวณเงินก้อน (บำเหน็จ)</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
+                            <h3 class="font-bold text-indigo-800 mb-2">จ่ายไม่ถึง 12 เดือน</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">ได้รับเท่ากับเงินสมทบที่ผู้ประกันตนจ่ายเอง</p>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-100">
+                            <h3 class="font-bold text-amber-800 mb-2">จ่าย 12 - 179 เดือน</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">ได้รับเงินส่วนที่จ่ายเอง + นายจ้างสมทบ + ผลประโยชน์ตอบแทน</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section: ขอยื่นคืนก่อนกำหนด -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-rose-100 p-2 rounded-lg text-rose-600">
+                            <i data-lucide="alert-circle" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">ยื่นคืนก่อนอายุ 55 ปีได้ไหม?</h2>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-slate-600 leading-relaxed">ปกติไม่สามารถทำได้ ยกเว้น 2 กรณีพิเศษ:</p>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="flex items-center gap-3 p-4 bg-rose-50 rounded-xl border border-rose-100">
+                                <i data-lucide="activity" class="w-5 h-5 text-rose-600"></i>
+                                <span class="text-rose-800 font-semibold">ทุพพลภาพ</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-4 bg-rose-50 rounded-xl border border-rose-100">
+                                <i data-lucide="skull" class="w-5 h-5 text-rose-600"></i>
+                                <span class="text-rose-800 font-semibold">เสียชีวิต</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </article>
     </div>
-
-    <!-- Main content -->
-    <div class="container max-w-screen-lg mx-auto px-8 py-5">
-
-        <!-- Section 1: เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">เช็คเงินชราภาพประกันสังคม ใครได้เท่าไหร่?</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                เงินชราภาพในระบบประกันสังคม ผู้ประกันตนจะได้รับเงินมากหรือน้อย ขึ้นอยู่กับระยะเวลาในการส่งเงินสมทบ โดยวิธีคำนวณจะแบ่งเป็น 2 วิธีหลัก:
-            </p>
-        </div>
-
-        <!-- Section 2: ผู้ประกันตนที่รับเงินบำนาญรายเดือน -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ผู้ประกันตนที่รับเงินบำนาญรายเดือน</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                เมื่อผู้ประกันตนจ่ายเงินสมทบครบ 15 ปี จะได้รับบำนาญ 20% ของค่าจ้างเฉลี่ย(สูงสุด 15,000 บาท) โดยคำนวณจาก:
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
-                    <p class="list-disc list-inside text-gray-700">
-                        คิดจากค่าจ้างเฉลี่ย คูณด้วย 20%
-                    </p>
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
-                    <p class="list-disc list-inside text-gray-700">
-                        หากจ่ายเงินสมทบเกิน 180 เดือน จะเพิ่มอัตราบำนาญอีก 1.5% ต่อทุก 12 เดือนที่จ่ายเกิน
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 3: คำนวณรับเงินก้อน หรือ บำเหน็จ -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">คำนวณรับเงินก้อน หรือ บำเหน็จ</h2>
-            <p class="text-gray-700 text-lg mb-4">สำหรับผู้ที่จ่ายเงินสมทบไม่ครบ 180 เดือน จะได้รับบำเหน็จ โดยแบ่งเป็น 2 แบบ:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-lg">
-                    <p class="list-disc list-inside text-gray-700">
-                        แบบที่ 1: จ่ายเงินสมทบไม่ถึง 12 เดือน จะได้รับบำเหน็จเท่ากับเงินสมทบที่จ่าย
-                    </p>
-                </div>
-                <div class="bg-purple-200 p-4 rounded-lg shadow text-lg">
-                    <p class="list-disc list-inside text-gray-700">
-                        แบบที่ 2: จ่ายเงินสมทบ 12 เดือนขึ้นไป แต่ไม่ถึง 180 เดือน จะได้รับบำเหน็จเท่ากับเงินสมทบที่จ่ายพร้อมกับเงินสมทบจากนายจ้าง
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 4: ขอคืนเงินสูงอายุก่อนอายุ 55 ปีได้หรือไม่? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขอคืนเงินสูงอายุก่อนอายุ 55 ปีได้หรือไม่?</h2>
-            <p class="text-gray-700 text-lg mb-4">โดยปกติแล้ว ไม่สามารถขอคืนเงินชราภาพได้ก่อนอายุ 55 ปี ยกเว้นใน 2 กรณี:</p>
-            <div class="grid grid-cols-1 md:grid-cols-1 gap-6 text-lg">
-                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
-                    1. กรณีที่ผู้ประกันตนกลายเป็นผู้ทุพพลภาพ ก่อนอายุ 55 ปี จะได้รับเป็นบำเหน็จ
-                </div>
-                <div class="bg-blue-100 p-4 rounded-lg shadow text-gray-700">
-                    2. กรณีผู้ประกันตนเสียชีวิตก่อนอายุ 55 ปี ทายาทจะได้รับเป็นบำเหน็จ
-                </div>
-            </div>
-        </div>
-
-        <!-- Section 5: ขอรับเงินบางส่วน ก่อนอายุ 55 ปีได้หรือไม่? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ขอรับเงินบางส่วน ก่อนอายุ 55 ปีได้หรือไม่?</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                ขณะนี้กำลังมีการศึกษาแนวทางที่จะให้ผู้ประกันตนเลือกขอรับบำเหน็จหรือบำนาญล่วงหน้าได้บางส่วนก่อนอายุ 55 ปี แต่หากเลือกใช้สิทธิล่วงหน้า จะทำให้เงินบำเหน็จหรือบำนาญลดลงในอนาคต และอาจส่งผลต่อความมั่นคงของกองทุนประกันสังคมในระยะยาว.
-            </p>
-        </div>
-
-        <!-- Section 6: แล้วแบบไหนคุ้มกว่ากัน ระหว่างบำเหน็จกับบำนาญ? -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">แล้วแบบไหนคุ้มกว่ากัน ระหว่างบำเหน็จกับบำนาญ?</h2>
-            <p class="text-gray-700 text-lg">
-                หลักการของประกันสังคมต้องการให้ผู้สูงอายุมีเงินใช้จ่ายในชีวิตประจำวันหลังเกษียณ หากส่งเงินสมทบครบ 180 เดือน จะได้รับบำนาญเพียงอย่างเดียว ไม่สามารถเลือกรับบำเหน็จได้ แต่หากจ่ายเงินสมทบไม่ครบ 180 เดือน จะได้รับบำเหน็จแทน.
-            </p>
-        </div>
-    </div>
-
-{% endblock%}
+</div>
+{% endblock %}

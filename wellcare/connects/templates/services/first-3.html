@@ -1,66 +1,95 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | ทำอย่างไรถึงจะได้รับเบี้ยผู้สูงอายุ?{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-first' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-first' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
-            
-            ย้อนกลับ
-        </button>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container mx-auto p-6">
-
-
-        <!-- Section 1: ทำอย่างไรถึงจะได้รับเบี้ยยังชีพผู้สูงอายุ -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ทำอย่างไรถึงจะได้รับเบี้ยยังชีพผู้สูงอายุ?</h2>
-            <p class="text-gray-700 text-lg mb-4">
-                ผู้สูงอายุสามารถดำเนินการรับเบี้ยยังชีพได้ด้วยตัวเอง หรือสามารถมอบอำนาจให้ผู้อื่นดำเนินการแทนได้ โดยสามารถเลือกช่องทางที่สะดวกในการลงทะเบียนรับสิทธิ
-            </p>
-        </div>
-
-        <!-- Section 2: ช่องทางการจ่ายเงิน -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">ช่องทางการจ่ายเงิน</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
-                    1. ภาครัฐจะโอนเงินเบี้ยยังชีพผู้สูงอายุผ่านธนาคารที่ผู้สูงอายุแจ้งไว้
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
-                    2. การโอนเงินจะดำเนินการทุกวันที่ 10 ของทุกเดือน
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
-                    3. หากวันที่ 10 ตรงกับวันเสาร์-อาทิตย์ หรือวันหยุดนักขัตฤกษ์ การโอนเงินจะเลื่อนมาเป็นวันก่อนหน้านั้น
-                </div>
-                <div class="bg-yellow-100 p-4 rounded-lg shadow text-gray-700">
-                    4. ดังนั้นในบางเดือน ผู้สูงอายุอาจจะได้รับเงินก่อนวันที่ 10
-                </div>
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
+        
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">ทำอย่างไรถึงจะได้รับเบี้ยผู้สูงอายุ?</h1>
+                <p class="text-blue-100 text-lg">ช่องทางการจ่ายเงินและกรอบเวลาการรับสิทธิ</p>
             </div>
-        </div>
 
-        <!-- Section 3: รับเงินได้เมื่อไหร่ -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">รับเงินได้เมื่อไหร่?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
-                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
-                    1. ผู้สูงอายุจะได้รับเบี้ยยังชีพตั้งแต่เดือนตุลาคมของปีที่มีอายุครบ 60 ปีบริบูรณ์
-                </div>
-                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
-                    2. การลงทะเบียนขอรับเบี้ยยังชีพผู้สูงอายุจะต้องทำล่วงหน้า เพื่อรับเงินในปีงบประมาณถัดไป
-                </div>
-                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
-                    3. ภาครัฐจะโอนเงินให้ทุกวันที่ 10 ของทุกเดือน หากตรงกับวันหยุด การโอนเงินจะถูกเลื่อนขึ้นมาเป็นวันก่อนหน้า
-                </div>
-                <div class="bg-pink-200 p-4 rounded-lg shadow text-gray-700">
-                    4. ดังนั้น การรับเงินในแต่ละเดือนอาจไม่ตรงวันที่ 10 เสมอ
-                </div>
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Section 1 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="hand-helping" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">วิธีการรับสิทธิ</h2>
+                    </div>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        ผู้สูงอายุสามารถดำเนินการรับเบี้ยยังชีพได้ด้วยตัวเอง หรือสามารถมอบอำนาจให้ผู้อื่นดำเนินการแทนได้ โดยสามารถเลือกช่องทางที่สะดวกในการลงทะเบียนรับสิทธิ ณ หน่วยงานที่รับลงทะเบียน
+                    </p>
+                </section>
+
+                <!-- Section 2 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="credit-card" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">ช่องทางการจ่ายเงิน</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-start gap-3 p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                            <i data-lucide="landmark" class="w-5 h-5 text-amber-600 mt-1"></i>
+                            <span class="text-amber-900">โอนเงินผ่านบัญชีธนาคารที่แจ้งไว้</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                            <i data-lucide="calendar-check" class="w-5 h-5 text-amber-600 mt-1"></i>
+                            <span class="text-amber-900">โอนทุกวันที่ 10 ของเดือน</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                            <i data-lucide="arrow-left-right" class="w-5 h-5 text-amber-600 mt-1"></i>
+                            <span class="text-amber-900">เลื่อนเร็วขึ้นหากตรงกับวันหยุด</span>
+                        </div>
+                        <div class="flex items-start gap-3 p-5 bg-amber-50 rounded-2xl border border-amber-100">
+                            <i data-lucide="bell" class="w-5 h-5 text-amber-600 mt-1"></i>
+                            <span class="text-amber-900">อาจได้รับเงินก่อนวันที่ 10 ในบางเดือน</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3 -->
+                <section>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="timer" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">จะได้รับเงินเมื่อไหร่?</h2>
+                    </div>
+                    <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="calendar" class="w-5 h-5 text-indigo-600 mt-1"></i>
+                            <p class="text-indigo-900 text-lg">
+                                จะได้รับเบี้ยยังชีพตั้งแต่ <span class="font-bold">เดือนตุลาคม</span> ของปีที่มีอายุครบ 60 ปีบริบูรณ์
+                            </p>
+                        </div>
+                        <p class="text-indigo-700 text-sm leading-relaxed">
+                            * การลงทะเบียนขอรับเบี้ยยังชีพผู้สูงอายุจะต้องทำล่วงหน้า เพื่อรับเงินในปีงบประมาณถัดไป ดังนั้นหากท่านเพิ่งอายุครบ 60 ปี และยังไม่ได้ลงทะเบียน จะต้องรอกรอบเวลาถัดไปตามที่ภาครัฐกำหนด
+                        </p>
+                    </div>
+                </section>
             </div>
-        </div>
+        </article>
     </div>
-
+</div>
 {% endblock %}

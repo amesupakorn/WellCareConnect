@@ -1,55 +1,79 @@
-{% extends "layout.html" %}
+{% extends 'base_patient.html' %}
+{% load static %}
+
+{% block title %}WellCareConnect | เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได{% endblock %}
+
+{% block back_button %}
+    <a href="{% url 'service-first' %}" class="flex items-center gap-2 bg-slate-100 text-slate-600 px-4 py-2 rounded-full font-semibold hover:bg-slate-200 transition-all">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>ย้อนกลับ</span>
+    </a>
+{% endblock %}
+
+{% block back_button_mobile %}
+    <a href="{% url 'service-first' %}" class="text-slate-600">
+        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+    </a>
+{% endblock %}
 
 {% block content %}
-
-    <!-- Header -->
-    <div class="bg-blue-100 p-4 flex items-center justify-between">
-        <div class="text-2xl font-bold text-blue-600">
-            <span>WellCareConnect</span>
-        </div>
-        <button class="bg-blue-500 text-white hover:bg-blue-400 rounded-full px-4 py-2" onclick="window.location.href='{% url 'service-first' %}';">
-            
-            ย้อนกลับ
-        </button>
-    </div>
-
-    <!-- Main Content -->
-    <div class="container mx-auto p-6">
-       
-        <!-- Section 1: เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto mx-auto border-collapse w-2/3">
-                    <thead>
-                        <tr>
-                            <th class="border-b-2 border-gray-300 px-4 py-2 bg-blue-600 text-white font-bold">อายุ (ปี)</th>
-                            <th class="border-b-2 border-gray-300 px-4 py-2 bg-blue-600 text-white font-bold">รับเงิน (บาท/เดือน)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="bg-gray-100">
-                            <td class="border-b px-4 py-2 text-center">60-69</td>
-                            <td class="border-b px-4 py-2 text-center">600</td>
-                        </tr>
-                        <tr>
-                            <td class="border-b px-4 py-2 text-center">70-79</td>
-                            <td class="border-b px-4 py-2 text-center">700</td>
-                        </tr>
-                        <tr class="bg-gray-100">
-                            <td class="border-b px-4 py-2 text-center">80-89</td>
-                            <td class="border-b px-4 py-2 text-center">800</td>
-                        </tr>
-                        <tr>
-                            <td class="border-b px-4 py-2 text-center">90 ขึ้นไป</td>
-                            <td class="border-b px-4 py-2 text-center">1,000</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+<div class="bg-slate-50 min-h-screen py-12">
+    <div class="container max-w-4xl mx-auto px-6">
         
-    </div>
+        <article class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+            <div class="bg-blue-600 p-8 md:p-12 text-white">
+                <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">เบี้ยยังชีพที่ผู้สูงอายุได้รับตามขั้นบันได</h1>
+                <p class="text-blue-100 text-lg">สรุปอัตราเงินช่วยเหลือรายเดือนตามช่วงอายุของผู้สูงอายุ</p>
+            </div>
 
+            <div class="p-8 md:p-12 space-y-12">
+                <!-- Section: Table -->
+                <section>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="bg-blue-100 p-2 rounded-lg text-blue-600">
+                            <i data-lucide="table-2" class="w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-800">อัตราเบี้ยยังชีพ</h2>
+                    </div>
+                    
+                    <div class="overflow-hidden rounded-2xl border border-slate-100 shadow-sm">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50">
+                                    <th class="px-8 py-5 text-slate-600 font-bold border-b border-slate-100">ช่วงอายุ (ปี)</th>
+                                    <th class="px-8 py-5 text-blue-600 font-bold border-b border-slate-100 text-right">ได้รับเงิน (บาท/เดือน)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="px-8 py-5 text-slate-700 font-medium">60 - 69 ปี</td>
+                                    <td class="px-8 py-5 text-right font-bold text-slate-800">600 บาท</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="px-8 py-5 text-slate-700 font-medium">70 - 79 ปี</td>
+                                    <td class="px-8 py-5 text-right font-bold text-slate-800">700 บาท</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/50 transition-colors">
+                                    <td class="px-8 py-5 text-slate-700 font-medium">80 - 89 ปี</td>
+                                    <td class="px-8 py-5 text-right font-bold text-slate-800">800 บาท</td>
+                                </tr>
+                                <tr class="bg-blue-50/30 hover:bg-blue-50/50 transition-colors">
+                                    <td class="px-8 py-5 text-blue-800 font-bold italic">90 ปีขึ้นไป</td>
+                                    <td class="px-8 py-5 text-right font-bold text-blue-600 text-xl">1,000 บาท</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Helpful Note -->
+                <div class="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-r-2xl">
+                    <p class="text-indigo-700 text-sm leading-relaxed">
+                        <span class="font-bold">หมายเหตุ:</span> การปรับขึ้นอัตราเบี้ยยังชีพตามช่วงอายุจะเกิดขึ้นโดยอัตโนมัติในเดือนถัดไปหลังจากที่ผู้สูงอายุมีอายุครบตามเกณฑ์ที่กำหนด (เช่น เมื่ออายุครบ 70 ปี ในเดือนถัดไปจะได้รับ 700 บาททันที)
+                    </p>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
 {% endblock %}
